@@ -109,6 +109,7 @@ local PetList = PetTab:AddScrolling("Pet", pets, "N/A", false, true, function(v)
         if v:FindFirstChild("NamePetThing") then
             if v.NamePetThing.Text == "NAME" then
             else
+		table.remove(pets)
                 PetName = v.NamePetThing.Text
                 table.insert(pets, PetName)
             end
