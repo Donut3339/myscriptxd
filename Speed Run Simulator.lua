@@ -71,7 +71,7 @@ local Orbs = FarmingTab:AddToggle("forbs", "Auto-Orbs", false, function(value)
     getgenv().orbs = value
     while getgenv().orbs and wait(0.4) do 
         for _,orbs in pairs(workspace.OrbSpawns:GetChildren()) do
-            if orbs:FindFirstChild("TouchInterest") and orbs.Name == "Orb" or orbs.Name == string.find("Orb") then
+            if orbs:FindFirstChild("TouchInterest") and orbs.Name == "Orb" then
                 wait(.3)
                 orbs.CFrame = Char.HumanoidRootPart.CFrame * CFrame.new(0, 1, 0) 
             end
