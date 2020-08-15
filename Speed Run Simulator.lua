@@ -136,18 +136,12 @@ end)
 
 local EquipPet = PetTab:AddButton("fpetequip", "Equip Pet", false, function()
     if SelectedPet == nil then return end
-    for i =1, PetValues do
-        wait(1.3)
-        Remotes.PetEquip:FireServer(SelectedPet)
-    end
+    Remotes.PetEquip:FireServer(SelectedPet)
 end)
 
 local UnequipPet = PetTab:AddButton("fpetunequip", "Unequip Pet", false, function()
     if SelectedPet == nil then return end
-    for i =1, PetValues * 2 do
-        wait(1.3)
-        Remotes.PetUnequip:FireServer(SelectedPet)
-    end
+    Remotes.PetEquip:FireServer(SelectedPet)
 end)
 
 local InfStorage = MiscTab:AddButton("finfstorage", "Inf Pet Storage", false, function()
