@@ -168,23 +168,20 @@ end)
 local InfEquip = MiscTab:AddButton("finfequip", "Inf Pet Equipped", false, function()
     LocalP.PetSlot.Value = 9e+18
 end)
-
+--[[
 local UnlockWorld = MiscTab:AddButton("funlockallworld", "Unlock All World", false, function()
-    local Tele = workspace.Teleports
-    local World = {[1] = Tele.Graveyard.Position, [2] = Tele.Heaven.Position, [3] = Tele.Desert.Position, [4] = Tele.Lava.Position, [5] = Tele.Ice.Position, [6] = Tele.Candyland.Position}
-    function Tp(...) Char:MoveTo(...) end
-    Tp(unpack{World[1]})
-    wait(.5)
-    Tp(unpack{World[2]})
-    wait(.5)
-    Tp(unpack{World[3]})
-    wait(.5)
-    Tp(unpack{World[4]})
-    wait(.5)
-    Tp(unpack{World[5]})
-    wait(.5)
-    Tp(unpack{World[6]})
+    function Tp(...) Char.HumanoidRootPart.CFrame = ... end
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v:FindFirstChild("TouchInterest") and v:FindFirstChild("Script") and v:FindFirstChildOfClass("PointLight") then
+            while true do
+                wait(.1)
+                Char.Humanoid:ChangeState(11)
+                Tp(v.CFrame)
+            end
+        end
+    end
 end)
+]]--
 
 -- Window2 --
 local w2 = Initialize:AddTab(RandomCharacters(math.random(5, 5)))
