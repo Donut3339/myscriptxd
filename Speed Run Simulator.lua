@@ -55,12 +55,13 @@ function Rebirth() Remotes.Rebirth:FireServer() end
 local Speed = FarmingTab:AddToggle("fspeed", "Auto-Speed", false, function(value)
     getgenv().farmspeed = value
     while getgenv().farmspeed and wait(.0000000000001) do 
-        wait(.4)
-        wait(.3)
-        wait(.498)
         wait(0.99)
         wait(0.99)
-        for i = 1, 2000 do
+        wait(0.99)
+        wait(0.88)
+        wait(0.88)
+        wait(0.55)
+        for i = 1, 3000 do
             AddSpeed() 
         end
     end
@@ -133,16 +134,18 @@ local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 1, max = 100,
     end
 end)
 
-local EquipPet = MiscTab:AddButton("fpetequip", "Equip Pet", false, function()
+local EquipPet = PetTab:AddButton("fpetequip", "Equip Pet", false, function()
     if SelectedPet == nil then return end
-    for i = #PetValues do
+    for i =1, PetValues do
+        wait(1.3)
         Remotes.PetEquip:FireServer(SelectedPet)
     end
 end)
 
-local UnequipPet = MiscTab:AddButton("fpetunequip", "Unequip Pet", false, function()
+local UnequipPet = PetTab:AddButton("fpetunequip", "Unequip Pet", false, function()
     if SelectedPet == nil then return end
-    for i = #PetValues * 2 do
+    for i =1, PetValues * 2 do
+        wait(1.3)
         Remotes.PetUnequip:FireServer(SelectedPet)
     end
 end)
