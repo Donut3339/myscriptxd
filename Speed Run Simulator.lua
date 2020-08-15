@@ -136,14 +136,14 @@ end)
 
 local EquipPet = PetTab:AddButton("fpetequip", "Equip Pet", false, function()
     if SelectedPet == nil then return end
-    for i = PetValues, PetValues do
+    for i = 1, PetValues do
         Remotes.PetEquip:FireServer(SelectedPet)
     end
 end)
 
 local UnequipPet = PetTab:AddButton("fpetunequip", "Unequip Pet", false, function()
     if SelectedPet == nil then return end
-    for i = PetValues, PetValues do
+    for i = 1, PetValues do
         Remotes.PetUnequip:FireServer(SelectedPet)
     end
 end)
