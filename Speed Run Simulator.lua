@@ -185,3 +185,21 @@ local UnlockWorld = MiscTab:AddButton("funlockallworld", "Unlock All World", fal
     wait(.5)
     Tp(unpack{World[6]})
 end)
+
+-- Window2 --
+local w2 = Initialize:AddTab(RandomCharacters(math.random(5, 5)))
+local KeybindTab = w2:AddSection("Keybind", false)
+local openClose = KeybindTab:AddTextLabel("fopenclose", "Open/Close : Insert", false)
+local UIS = game:service"UserInputService"
+
+UIS.InputBegan:Connect(function(Input)
+    if Input.KeyCode == Enum.KeyCode.Insert then
+        if game:service'CoreGui':FindFirstChild'SRSGui' then
+            if game:service'CoreGui'.SRSGui.Enabled == true then
+                game:service'CoreGui'.SRSGui.Enabled = false;
+            elseif game:service'CoreGui'.SRSGui.Enabled == false then
+                game:service'CoreGui'.SRSGui.Enabled = true;
+            end
+        end
+    end
+end)
