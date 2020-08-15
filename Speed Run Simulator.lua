@@ -170,11 +170,18 @@ local InfEquip = MiscTab:AddButton("finfequip", "Inf Pet Equipped", false, funct
 end)
 
 local UnlockWorld = MiscTab:AddButton("funlockallworld", "Unlock All World", false, function()
-    for i,v in pairs(workspace.Teleports:GetChildren()) do
-        if v:IsA("Part") then
-        	if v:FindFirstChild("Graveyard") then
-        		Char:MoveTo(v.CFrame)
-        	end
-        end
-    end
+    local Tele = workspace.Teleports
+    local World = {[1] = Tele.Graveyard.Position, [2] = Tele.Heaven.Position, [3] = Tele.Desert.Position, [4] = Tele.Lava.Position, [5] = Tele.Ice.Position, [6] = Tele.Candyland.Position}
+    function Tp(...) Char:MoveTo(...) end
+    Tp(unpack{World[1]})
+    wait(.5)
+    Tp(unpack{World[2]})
+    wait(.5)
+    Tp(unpack{World[3]})
+    wait(.5)
+    Tp(unpack{World[4]})
+    wait(.5)
+    Tp(unpack{World[5]})
+    wait(.5)
+    Tp(unpack{World[6]})
 end)
