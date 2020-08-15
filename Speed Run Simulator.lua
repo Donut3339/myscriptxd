@@ -117,23 +117,24 @@ local PetList = PetTab:AddScrolling("Pet", pets, "N/A", false, true, function(v)
     end 
 end)
 
-local EquipPet = PetTab:AddSlider("fequippet", "Equip Pet", {min = 1, max = 50, def = 1}, function(value)
+local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 1, max = 100, def = 1}, function(value)
     if SelectedPet == nil then
     else
-        for i = 1, value do
-            wait(1)
-            Remotes.PetEquip:FireServer(SelectedPet)
-        end
+        PetValues = value
     end
 end)
 
-local UnequipPet = PetTab:AddSlider("funequippet", "Unequip Pet", {min = 1, max = 100, def = 1}, function(value)
-    if SelectedPet == nil then
-    else
-        for i = 1, value do
-            wait(.1)
-            Remotes.PetUnequip:FireServer(SelectedPet)
-        end
+local EquipPet = MiscTab:AddButton("fpetequip", "Equip Pet", false, function()
+    if SelectedPet == nil then return end
+    for i = #PetValues do
+        Remotes.PetEquip:FireServer(SelectedPet)
+    end
+end)
+
+local UnequipPet = MiscTab:AddButton("fpetunequip", "Unequip Pet", false, function()
+    if SelectedPet == nil then return end
+    for i = #PetValues * 2 do
+        Remotes.PetUnequip:FireServer(SelectedPet)
     end
 end)
 
