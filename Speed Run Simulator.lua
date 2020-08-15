@@ -127,7 +127,7 @@ local PetList = PetTab:AddScrolling("Pet", pets, "N/A", false, true, function(v)
     end 
 end)
 
-local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 1, max = 100, def = 1}, function(value)
+local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 1, max = 500, def = 1}, function(value)
     if SelectedPet == nil then
     else
         PetValues = value
