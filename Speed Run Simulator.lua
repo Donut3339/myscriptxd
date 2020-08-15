@@ -119,7 +119,7 @@ local PetList = PetTab:AddScrolling("Pet", pets, "N/A", false, true, function(v)
         if v:FindFirstChild("NamePetThing") then
             if v.NamePetThing.Text == "NAME" then
             else
-		table.remove(pets)
+		        table.remove(pets)
                 PetName = v.NamePetThing.Text
                 table.insert(pets, PetName)
             end
@@ -127,16 +127,26 @@ local PetList = PetTab:AddScrolling("Pet", pets, "N/A", false, true, function(v)
     end 
 end)
 
-local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 1, max = 500, def = 1}, function(value)
-    if SelectedPet == nil then
-    else
-        PetValues = value
-    end
+local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 1, max = 100, def = 1}, function(value)
+    if SelectedPet == nil then return end
+    if value == nil then return 1 end
+    PetValues = value
 end)
 
+--[[
+petequipped = {}
+
+for i,v in pairs(LocalP:GetChildren()) do
+    if v:FindFirstChild("EquippedPets") then
+        local PetEquipVal = v.EquippedPets.Value
+        table.insert(petequipped, PetEquipVal)
+    end
+end
+]]--
 local EquipPet = PetTab:AddButton("fpetequip", "Equip Pet", false, function()
     if SelectedPet == nil then return end
-    for i = 1, PetValues do
+    if PetValues == nil then return end
+    for i= 1, tonumber(PetValues) do
         wait(.1)
         Remotes.PetEquip:FireServer(SelectedPet)
     end
@@ -144,7 +154,8 @@ end)
 
 local UnequipPet = PetTab:AddButton("fpetunequip", "Unequip Pet", false, function()
     if SelectedPet == nil then return end
-    for i = 1, PetValues do
+    if PetValues == nil then return end
+    for i= 1, tonumber(PetValues) do
         wait(.1)
         Remotes.PetUnequip:FireServer(SelectedPet)
     end
@@ -156,4 +167,14 @@ end)
 
 local InfEquip = MiscTab:AddButton("finfequip", "Inf Pet Equipped", false, function()
     LocalP.PetSlot.Value = 9e+18
+end)
+
+local UnlockWorld = MiscTab:AddButton("funlockallworld", "Unlock All World", false, function()
+    for i,v in pairs(workspace.Teleports:GetChildren()) do
+        if v:IsA("Part") then
+        	if v:FindFirstChild("Graveyard") then
+        		Char:MoveTo(v.CFrame)
+        	end
+        end
+    end
 end)
