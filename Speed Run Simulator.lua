@@ -1,3 +1,10 @@
+--[[
+    To-do:
+        - Auto race (auto win race)
+        - auto equip pet or a button for equip all (requested)
+        - Unlock world
+]]
+
 if game:GetService'CoreGui':FindFirstChild'SRSGui' then
     game:GetService'CoreGui'.SRSGui:Destroy();
 end
@@ -133,16 +140,6 @@ local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 1, max = 100,
     PetValues = value
 end)
 
---[[
-petequipped = {}
-
-for i,v in pairs(LocalP:GetChildren()) do
-    if v:FindFirstChild("EquippedPets") then
-        local PetEquipVal = v.EquippedPets.Value
-        table.insert(petequipped, PetEquipVal)
-    end
-end
-]]--
 local EquipPet = PetTab:AddButton("fpetequip", "Equip Pet", false, function()
     if SelectedPet == nil then return end
     if PetValues == nil then return end
