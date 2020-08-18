@@ -180,6 +180,7 @@ local EquipAllPet = PetTab:AddButton("fequipallpet", "Equip All Pet", false, fun
             if v:FindFirstChild("NamePetThing") then
                 if v.NamePetThing.Text == "NAME" then
                 else
+                    wait(.1)
                     Pets1 = v.NamePetThing.Text
                     Remotes.PetEquip:FireServer(Pets1)
                 end
@@ -206,6 +207,7 @@ local UnequipAllPet = PetTab:AddButton("funequipallpet", "Unequip All Pet", fals
             if v:FindFirstChild("NamePetThing") then
                 if v.NamePetThing.Text == "NAME" then
                 else
+                    wait(.1)
                     Pets2 = v.NamePetThing.Text
                     Remotes.PetUnequip:FireServer(Pets2)
                 end
