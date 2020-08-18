@@ -1,8 +1,6 @@
 --[[
     To-do:
-        - Auto race (auto win race)
-        - auto equip pet or a button for equip all (requested)
-        - Unlock world
+    - Unlock world
 ]]
 
 if game:GetService'CoreGui':FindFirstChild'SRSGui' then
@@ -108,6 +106,24 @@ local Rings = FarmingTab:AddToggle("frings", "Auto-Rings", false, function(value
     end
 end)
 
+local Race = FarmingTab:AddToggle("frace", "Auto-WinRace", false, function(value)
+    getgenv().race = value
+    while getgenv().race and wait(.7) do
+        repeat
+            Remotes.RaceTrigger:FireServer()
+            for i,v in pairs(workspace:GetChildren()) do
+                if v:FindFirstChild("TouchInterest") then
+                    if v.Name == "RaceEnd" then
+                        Char.HumanoidRootPart.CFrame = v.CFrame
+                    end
+                end
+            end
+            Remotes.RaceResults:FireServer()
+            wait(.2)
+        until getgenv().race == false
+    end
+end)
+
 pets = {}
 
 for i,v in pairs(LocalP.PlayerGui.MainUI.PetUI.SelectionPanel.ScrollingFrame:GetChildren()) do
@@ -149,12 +165,47 @@ local EquipPet = PetTab:AddButton("fpetequip", "Equip Pet", false, function()
     end
 end)
 
+local EquipAllPet = PetTab:AddButton("fequipallpet", "Equip All Pet", false, function()
+    if SelectedPet == nil then return end
+    if PetValues == nil then return end
+    for i= 1, tonumber(PetValues) do
+        wait(.1)
+        for i,v in pairs(LocalP.PlayerGui.MainUI.PetUI.SelectionPanel.ScrollingFrame:GetChildren()) do
+            if v:FindFirstChild("NamePetThing") then
+                if v.NamePetThing.Text == "NAME" then
+                else
+                    Pets1 = v.NamePetThing.Text
+                    Remotes.PetEquip:FireServer(Pets1)
+                end
+            end
+        end
+    end
+end)
+
+
 local UnequipPet = PetTab:AddButton("fpetunequip", "Unequip Pet", false, function()
     if SelectedPet == nil then return end
     if PetValues == nil then return end
     for i= 1, tonumber(PetValues) do
         wait(.1)
         Remotes.PetUnequip:FireServer(SelectedPet)
+    end
+end)
+
+local UnequipAllPet = PetTab:AddButton("funequipallpet", "Unequip All Pet", false, function()
+    if SelectedPet == nil then return end
+    if PetValues == nil then return end
+    for i= 1, tonumber(PetValues) do
+        wait(.1)
+        for i,v in pairs(LocalP.PlayerGui.MainUI.PetUI.SelectionPanel.ScrollingFrame:GetChildren()) do
+            if v:FindFirstChild("NamePetThing") then
+                if v.NamePetThing.Text == "NAME" then
+                else
+                    Pets2 = v.NamePetThing.Text
+                    Remotes.PetUnequip:FireServer(Pets2)
+                end
+            end
+        end
     end
 end)
 
@@ -165,6 +216,7 @@ end)
 local InfEquip = MiscTab:AddButton("finfequip", "Inf Pet Equipped", false, function()
     LocalP.PetSlot.Value = 9e+18
 end)
+
 --[[
 local UnlockWorld = MiscTab:AddButton("funlockallworld", "Unlock All World", false, function()
     function Tp(...) Char.HumanoidRootPart.CFrame = ... end
