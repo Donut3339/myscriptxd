@@ -61,49 +61,59 @@ function Rebirth() Remotes.Rebirth:FireServer() end
 local Speed = FarmingTab:AddToggle("fspeed", "Auto-Speed", false, function(value)
     getgenv().farmspeed = value
     while getgenv().farmspeed and wait(.0000000000001) do 
-        wait(0.99)
-        wait(0.99)
-        wait(0.99)
-        wait(0.88)
-        wait(0.88)
-        wait(0.55)
-        for i = 1, 3000 do
-            AddSpeed() 
-        end
+        repeat wait(.5)
+            wait(.4)
+            wait(.5)
+            wait(.3)
+            wait(.4)
+            wait(.3)
+            wait(.5)
+            wait(.3)
+            wait(.4)
+            wait(.3)
+            for i = 1, 2400 do
+                AddSpeed() 
+            end
+        until getgenv().farmspeed == false
     end
 end)
 
 local Rebirth = FarmingTab:AddToggle("frebirth", "Auto-Rebirth", false, function(value)
     getgenv().rebirth = value
-    while getgenv().rebirth and wait(0.4) do 
-        wait(.2)
-        if CurrentBar >= MaxBar or CurrentBar <= MaxBar then 
-            Rebirth()
-        end 
+    while getgenv().rebirth and wait(.1) do 
+        repeat wait(.2)
+            if CurrentBar >= MaxBar or CurrentBar <= MaxBar then 
+                Rebirth()
+            end 
+        until getgenv().rebirth == false
     end
 end)
 
 local Orbs = FarmingTab:AddToggle("forbs", "Auto-Orbs", false, function(value)
     getgenv().orbs = value
-    while getgenv().orbs and wait(0.4) do 
-        for _,orbs in pairs(workspace.OrbSpawns:GetChildren()) do
-            if orbs:FindFirstChild("TouchInterest") and orbs.Name == "Orb" then
-                wait(.3)
-                orbs.CFrame = Char.HumanoidRootPart.CFrame * CFrame.new(0, 1, 0) 
+    while getgenv().orbs and wait(.1) do
+        repeat
+            for _,orbs in pairs(workspace.OrbSpawns:GetChildren()) do
+                if orbs:FindFirstChild("TouchInterest") and orbs.Name == "Orb" then
+                    wait(.3)
+                    orbs.CFrame = Char.HumanoidRootPart.CFrame * CFrame.new(0, 1, 0) 
+                end
             end
-        end
+        until getgenv().orbs == false
     end
 end)
 
 local Rings = FarmingTab:AddToggle("frings", "Auto-Rings", false, function(value)
     getgenv().rings = value
-    while getgenv().rings and wait(0.4) do 
-        for _,rings in pairs(workspace.OrbSpawns:GetChildren()) do
-            if rings:FindFirstChild("TouchInterest") and rings.Name == "Ring" then
-                wait(.3)
-                rings.CFrame = Char.HumanoidRootPart.CFrame * CFrame.new(0, 1, 0) 
+    while getgenv().rings and wait(.1) do
+        repeat
+            for _,rings in pairs(workspace.OrbSpawns:GetChildren()) do
+                if rings:FindFirstChild("TouchInterest") and rings.Name == "Ring" then
+                    wait(.3)
+                    rings.CFrame = Char.HumanoidRootPart.CFrame * CFrame.new(0, 1, 0) 
+                end
             end
-        end
+        until getgenv().rings == false
     end
 end)
 
