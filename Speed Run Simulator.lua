@@ -119,7 +119,7 @@ end)
 
 local Race = FarmingTab:AddToggle("frace", "Auto-WinRace", false, function(value)
     getgenv().race = value
-    while getgenv().race and wait(.7) do
+    while getgenv().race and wait(.6) do
         repeat
             Remotes.RaceTrigger:FireServer()
             for i,v in pairs(workspace:GetChildren()) do
@@ -217,7 +217,7 @@ local UnequipAllPet = PetTab:AddButton("funequipallpet", "Unequip All Pet", fals
             if v:FindFirstChild("NamePetThing") then
                 if v.NamePetThing.Text == "NAME" then
                 else
-                    wait(.1)
+                    wait()
                     Pets2 = v.NamePetThing.Text
                     Remotes.PetUnequip:FireServer(Pets2)
                 end
