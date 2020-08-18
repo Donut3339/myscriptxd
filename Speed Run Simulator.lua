@@ -114,7 +114,13 @@ local Race = FarmingTab:AddToggle("frace", "Auto-WinRace", false, function(value
             for i,v in pairs(workspace:GetChildren()) do
                 if v:FindFirstChild("TouchInterest") then
                     if v.Name == "RaceEnd" then
-                        Char.HumanoidRootPart.CFrame = v.CFrame
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v.CFrame
+                        end)
                     end
                 end
             end
@@ -150,7 +156,7 @@ local PetList = PetTab:AddScrolling("Pet", pets, "N/A", false, true, function(v)
     end 
 end)
 
-local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 1, max = 100, def = 1}, function(value)
+local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 5, max = 100, def = 5}, function(value)
     if SelectedPet == nil then return end
     if value == nil then return 1 end
     PetValues = value
@@ -166,7 +172,6 @@ local EquipPet = PetTab:AddButton("fpetequip", "Equip Pet", false, function()
 end)
 
 local EquipAllPet = PetTab:AddButton("fequipallpet", "Equip All Pet", false, function()
-    if SelectedPet == nil then return end
     if PetValues == nil then return end
     for i= 1, tonumber(PetValues) do
         wait(.1)
@@ -193,7 +198,6 @@ local UnequipPet = PetTab:AddButton("fpetunequip", "Unequip Pet", false, functio
 end)
 
 local UnequipAllPet = PetTab:AddButton("funequipallpet", "Unequip All Pet", false, function()
-    if SelectedPet == nil then return end
     if PetValues == nil then return end
     for i= 1, tonumber(PetValues) do
         wait(.1)
