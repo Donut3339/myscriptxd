@@ -1,6 +1,7 @@
 --[[
     To-do:
-    - Unlock world
+    - Delete & Upgrade pet (after teleport thing)
+    - Teleport to egg, world, etc.. (countinue soon, tired ;/ )
 ]]
 
 if game:GetService'CoreGui':FindFirstChild'SRSGui' then
@@ -221,24 +222,262 @@ local InfEquip = MiscTab:AddButton("finfequip", "Inf Pet Equipped", false, funct
     LocalP.PetSlot.Value = 9e+18
 end)
 
---[[
 local UnlockWorld = MiscTab:AddButton("funlockallworld", "Unlock All World", false, function()
-    function Tp(...) Char.HumanoidRootPart.CFrame = ... end
     for i,v in pairs(workspace:GetDescendants()) do
-        if v:FindFirstChild("TouchInterest") and v:FindFirstChild("Script") and v:FindFirstChildOfClass("PointLight") then
-            while true do
-                wait(.1)
-                Char.Humanoid:ChangeState(11)
-                Tp(v.CFrame)
+        if v:FindFirstChild("TouchInterest") then
+            if v.ClassName == "MeshPart" or v.ClassName == "Part" or v.Name == "Spawn" or v.Name == "VIP" then
+            else
+                pcall(function()
+                    Char.Humanoid:ChangeState(11)
+                end)
+    
+                pcall(function()
+                    wait(.1)
+                    Char.HumanoidRootPart.CFrame = v.CFrame
+                end)
             end
         end
     end
 end)
-]]--
 
--- Window2 --
+-- Windows 2 --
 local w2 = Initialize:AddTab(RandomCharacters(math.random(5, 5)))
-local KeybindTab = w2:AddSection("Keybind", false)
+local tpTab = w2:AddSection("Teleports", false)
+local sad = tpTab:AddTextLabel("finfo", "Tomorrow ill done it. i need sleep bye", true)
+
+eggListA = {"Soon, i need sleep"}
+eggListB = {"Soon, i need sleep"}
+worldListA = {}
+
+--[[
+for i,v in pairs(workspace:GetDescendants()) do
+    if v:FindFirstChild("pet") or v.ClassName == "MeshPart" then
+        if v:FindFirstChild("Type") or v.ClassName == "StringValue" then
+            local TypeEggA = v.Type.Value
+            table.insert(eggListA, TypeEggA)
+        end
+    end
+end
+
+for i,v in pairs(workspace:GetDescendants()) do
+    if v:FindFirstChild("pet") or v.ClassName == "MeshPart" then
+        if v:FindFirstChild("Type") or v.ClassName == "StringValue" then
+            local TypeEggB = v.Type.Value
+            table.insert(eggListB, TypeEggB)
+        end
+    end
+end
+]]--
+for i,v in pairs(workspace.Teleports:GetChildren()) do
+    if v.ClassName == "Part" or not v.ClassName == "SpawnLocation" then
+        local getWorlds = v.Name
+        table.insert(worldListA, getWorlds)
+    end
+end
+
+local TeleportEggsA = tpTab:AddDropdown("Eggs 1", eggListA, false, function(v)
+    --[[
+    for i2,v2 in pairs(workspace:GetDescendants()) do
+        if v2:FindFirstChild("pet") or v2.ClassName == "MeshPart" then
+            if v2:FindFirstChild("Type") or v2.ClassName == "StringValue" then
+                if v == eggListA[1] then
+                    if v2.Type.Value == eggListA[1] then
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+    
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v2.CFrame
+                        end)
+                    end
+                elseif v == eggListA[2] then
+                    if v2.Type.Value == eggListA[2] then
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+    
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v2.CFrame
+                        end)
+                    end
+                elseif v == eggListA[3] then
+                    if v2.Type.Value == eggListA[3] then
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v2.CFrame
+                        end)
+                    end
+                elseif v == eggListA[4] then
+                    if v2.Type.Value == eggListA[4] then
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v2.CFrame
+                        end)
+                    end
+                elseif v == eggListA[5] then
+                    if v2.Type.Value == eggListA[5] then
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+    
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v2.CFrame
+                        end)
+                    end
+                elseif v == eggListA[6] then
+                    if v2.Type.Value == eggListA[6] then
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+    
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v2.CFrame
+                        end)
+                    end
+                elseif v == eggListA[7] then
+                    if v2.Type.Value == eggListA[7] then
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v2.CFrame
+                        end)
+                    end
+                elseif v == eggListA[8] then
+                    if v2.Type.Value == eggListA[8] then
+                        pcall(function()
+                            Char.Humanoid:ChangeState(11)
+                        end)
+
+                        pcall(function()
+                            Char.HumanoidRootPart.CFrame = v2.CFrame
+                        end)
+                    end
+                end
+            end
+        end
+    end
+    ]]--
+end)
+
+local TeleportEggsA = tpTab:AddDropdown("Eggs 2", eggListB, false, function(v)
+    --[[
+    for i2,v2 in pairs(RS.Assets:GetChildren()) do
+        if v2.ClassName == "Part" or v2.ClassName == "BillboardGui" or v2.Name == "Orb" or v2.Name == "Orb2" or v2.Name == "Orb3" or v2.Name == "EggOneEgg" or v2.Name == "EggTwoEgg" or v2.Name == "EggThreeEgg" or v2.Name == "EggFourEgg" or v2.Name == "EggFiveEgg" or v2.Name == "EggSixEgg" or v2.Name == "EggSevenEgg" or v2.Name == "EggEightEgg" then
+        else
+            warn(v2)
+        end
+    end
+    ]]--
+end)
+
+
+local TeleportWorlds = tpTab:AddDropdown("Worlds", worldListA, false, function(v)
+    for i2,v2 in pairs(workspace.Teleports:GetChildren()) do
+        if v2.ClassName == "Part" or not v2.ClassName == "SpawnLocation" then
+            if v == worldListA[1] then
+                if v2.Name == worldListA[1] then
+                    pcall(function()
+                        Char.Humanoid:ChangeState(11)
+                    end)
+
+                    pcall(function()
+                        wait(.1)
+                        Char.HumanoidRootPart.CFrame = v2.CFrame
+                    end)
+                end
+            elseif v == worldListA[2] then
+                if v2.Name == worldListA[2] then
+                    pcall(function()
+                        Char.Humanoid:ChangeState(11)
+                    end)
+
+                    pcall(function()
+                        wait(.1)
+                        Char.HumanoidRootPart.CFrame = v2.CFrame
+                    end)
+                end
+            elseif v == worldListA[3] then
+                if v2.Name == worldListA[3] then
+                    pcall(function()
+                        Char.Humanoid:ChangeState(11)
+                    end)
+
+                    pcall(function()
+                        wait(.1)
+                        Char.HumanoidRootPart.CFrame = v2.CFrame
+                    end)
+                end
+            elseif v == worldListA[4] then
+                if v2.Name == worldListA[4] then
+                    pcall(function()
+                        Char.Humanoid:ChangeState(11)
+                    end)
+
+                    pcall(function()
+                        wait(.1)
+                        Char.HumanoidRootPart.CFrame = v2.CFrame
+                    end)
+                end
+            elseif v == worldListA[5] then
+                if v2.Name == worldListA[5] then
+                    pcall(function()
+                        Char.Humanoid:ChangeState(11)
+                    end)
+
+                    pcall(function()
+                        wait(.1)
+                        Char.HumanoidRootPart.CFrame = v2.CFrame
+                    end)
+                end
+            elseif v == worldListA[6] then
+                if v2.Name == worldListA[6] then
+                    pcall(function()
+                        Char.Humanoid:ChangeState(11)
+                    end)
+
+                    pcall(function()
+                        wait(.1)
+                        Char.HumanoidRootPart.CFrame = v2.CFrame
+                    end)
+                end
+            elseif v == worldListA[7] then
+                if v2.Name == worldListA[7] then
+                    pcall(function()
+                        Char.Humanoid:ChangeState(11)
+                    end)
+
+                    pcall(function()
+                        wait(.1)
+                        Char.HumanoidRootPart.CFrame = v2.CFrame
+                    end)
+                end
+            elseif v == worldListA[8] then
+                if v2.Name == worldListA[8] then
+                    pcall(function()
+                        Char.Humanoid:ChangeState(11)
+                    end)
+
+                    pcall(function()
+                        wait(.1)
+                        Char.HumanoidRootPart.CFrame = v2.CFrame
+                    end)
+                end
+            end
+        end
+    end
+end)
+
+-- settings --
+local settings = Initialize:AddTab(RandomCharacters(math.random(5, 5)))
+local KeybindTab = settings:AddSection("Keybind", false)
 local openClose = KeybindTab:AddTextLabel("fopenclose", "Open/Close : Insert", false)
 local UIS = game:service"UserInputService"
 
