@@ -267,10 +267,15 @@ for i,v in pairs(workspace.Teleports:GetChildren()) do
 end
 
 for i2,v2 in pairs(workspace:GetDescendants()) do
-    if v2:FindFirstChild("pet") or v2:FindFirstChild("Detect") then
-        if v2.Name == "BillboardGui" or v2.Name == "Type" or v2.ClassName == "BillboardGui" or v2.ClassName == "StringValue" then
-            local EggTypeName = v2.Type.Value
-            table.insert(eggListA, EggTypeName)
+    if v2.ClassName == "MeshPart" then
+        if v2:FindFirstChild("BillboardGui") or v2.ClassName == "BillboardGui" then
+            if v2.Name == "Meshes/Question Mark" then
+            else
+                if v2:FindFirstChild("Type") or v2.ClassName == "StringValue" then
+                    local EggTypeName = v2.Type.Value
+                    table.insert(eggListA, EggTypeName)
+                end
+            end
         end
     end
 end
@@ -372,7 +377,150 @@ local TeleportWorlds = tpTab:AddDropdown("Worlds", worldListA, false, function(v
 end)
 
 local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
+    for i2,v2 in pairs(workspace:GetDescendants()) do
+        if v2.ClassName == "MeshPart" then
+            if v2:FindFirstChild("BillboardGui") or v2.ClassName == "BillboardGui" then
+                if v2.Name == "Meshes/Question Mark" then
+                else
+                    if v2:FindFirstChild("Type") or v2.ClassName == "StringValue" then
+                        if v == eggListA[1] then
+                            if v2.Name == eggListA[1] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
 
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[2] then
+                            if v2.Name == eggListA[2] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[3] then
+                            if v2.Name == eggListA[3] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[4] then
+                            if v2.Name == eggListA[4] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[5] then
+                            if v2.Name == eggListA[5] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[6] then
+                            if v2.Name == eggListA[6] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[7] then
+                            if v2.Name == eggListA[7] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[8] then
+                            if v2.Name == eggListA[8] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[9] then
+                            if v2.Name == eggListA[9] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[10] then
+                            if v2.Name == eggListA[10] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[11] then
+                            if v2.Name == eggListA[11] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        elseif v == eggListA[12] then
+                            if v2.Name == eggListA[12] then
+                                pcall(function()
+                                    Char.Humanoid:ChangeState(11)
+                                end)
+
+                                pcall(function()
+                                    wait(.1)
+                                    Char.HumanoidRootPart.CFrame = v2.CFrame
+                                end)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
 end)
 
 -- settings --
