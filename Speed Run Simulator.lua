@@ -217,7 +217,7 @@ local UnequipAllPet = PetTab:AddButton("funequipallpet", "Unequip All Pet", fals
             if v:FindFirstChild("NamePetThing") then
                 if v.NamePetThing.Text == "NAME" then
                 else
-                    wait()
+                    wait(.1)
                     Pets2 = v.NamePetThing.Text
                     Remotes.PetUnequip:FireServer(Pets2)
                 end
@@ -255,31 +255,10 @@ end)
 -- Windows 2 --
 local w2 = Initialize:AddTab(RandomCharacters(math.random(5, 5)))
 local tpTab = w2:AddSection("Teleports", false)
-local sad = tpTab:AddTextLabel("finfo", "Tomorrow ill done it. i need sleep bye", true)
 
-eggListA = {"Soon, i need sleep"}
-eggListB = {"Soon, i need sleep"}
 worldListA = {}
+eggListA = {}
 
---[[
-for i,v in pairs(workspace:GetDescendants()) do
-    if v:FindFirstChild("pet") or v.ClassName == "MeshPart" then
-        if v:FindFirstChild("Type") or v.ClassName == "StringValue" then
-            local TypeEggA = v.Type.Value
-            table.insert(eggListA, TypeEggA)
-        end
-    end
-end
-
-for i,v in pairs(workspace:GetDescendants()) do
-    if v:FindFirstChild("pet") or v.ClassName == "MeshPart" then
-        if v:FindFirstChild("Type") or v.ClassName == "StringValue" then
-            local TypeEggB = v.Type.Value
-            table.insert(eggListB, TypeEggB)
-        end
-    end
-end
-]]--
 for i,v in pairs(workspace.Teleports:GetChildren()) do
     if v.ClassName == "Part" or not v.ClassName == "SpawnLocation" then
         local getWorlds = v.Name
@@ -287,109 +266,14 @@ for i,v in pairs(workspace.Teleports:GetChildren()) do
     end
 end
 
-local TeleportEggsA = tpTab:AddDropdown("Eggs 1", eggListA, false, function(v)
-    --[[
-    for i2,v2 in pairs(workspace:GetDescendants()) do
-        if v2:FindFirstChild("pet") or v2.ClassName == "MeshPart" then
-            if v2:FindFirstChild("Type") or v2.ClassName == "StringValue" then
-                if v == eggListA[1] then
-                    if v2.Type.Value == eggListA[1] then
-                        pcall(function()
-                            Char.Humanoid:ChangeState(11)
-                        end)
-    
-                        pcall(function()
-                            Char.HumanoidRootPart.CFrame = v2.CFrame
-                        end)
-                    end
-                elseif v == eggListA[2] then
-                    if v2.Type.Value == eggListA[2] then
-                        pcall(function()
-                            Char.Humanoid:ChangeState(11)
-                        end)
-    
-                        pcall(function()
-                            Char.HumanoidRootPart.CFrame = v2.CFrame
-                        end)
-                    end
-                elseif v == eggListA[3] then
-                    if v2.Type.Value == eggListA[3] then
-                        pcall(function()
-                            Char.Humanoid:ChangeState(11)
-                        end)
-
-                        pcall(function()
-                            Char.HumanoidRootPart.CFrame = v2.CFrame
-                        end)
-                    end
-                elseif v == eggListA[4] then
-                    if v2.Type.Value == eggListA[4] then
-                        pcall(function()
-                            Char.Humanoid:ChangeState(11)
-                        end)
-
-                        pcall(function()
-                            Char.HumanoidRootPart.CFrame = v2.CFrame
-                        end)
-                    end
-                elseif v == eggListA[5] then
-                    if v2.Type.Value == eggListA[5] then
-                        pcall(function()
-                            Char.Humanoid:ChangeState(11)
-                        end)
-    
-                        pcall(function()
-                            Char.HumanoidRootPart.CFrame = v2.CFrame
-                        end)
-                    end
-                elseif v == eggListA[6] then
-                    if v2.Type.Value == eggListA[6] then
-                        pcall(function()
-                            Char.Humanoid:ChangeState(11)
-                        end)
-    
-                        pcall(function()
-                            Char.HumanoidRootPart.CFrame = v2.CFrame
-                        end)
-                    end
-                elseif v == eggListA[7] then
-                    if v2.Type.Value == eggListA[7] then
-                        pcall(function()
-                            Char.Humanoid:ChangeState(11)
-                        end)
-
-                        pcall(function()
-                            Char.HumanoidRootPart.CFrame = v2.CFrame
-                        end)
-                    end
-                elseif v == eggListA[8] then
-                    if v2.Type.Value == eggListA[8] then
-                        pcall(function()
-                            Char.Humanoid:ChangeState(11)
-                        end)
-
-                        pcall(function()
-                            Char.HumanoidRootPart.CFrame = v2.CFrame
-                        end)
-                    end
-                end
-            end
+for i,v in pairs(workspace:GetDescendants()) do
+    if v:FindFirstChild("pet") or v:FindFirstChild("Detect") then
+        if v.Name == "BillboardGui" or v.Name == "Type" or v.ClassName == "BillboardGui" or v.ClassName == "StringValue" then
+            local EggTypeName = v.Type.Value
+            table.insert(eggListA, EggTypeName)
         end
     end
-    ]]--
-end)
-
-local TeleportEggsA = tpTab:AddDropdown("Eggs 2", eggListB, false, function(v)
-    --[[
-    for i2,v2 in pairs(RS.Assets:GetChildren()) do
-        if v2.ClassName == "Part" or v2.ClassName == "BillboardGui" or v2.Name == "Orb" or v2.Name == "Orb2" or v2.Name == "Orb3" or v2.Name == "EggOneEgg" or v2.Name == "EggTwoEgg" or v2.Name == "EggThreeEgg" or v2.Name == "EggFourEgg" or v2.Name == "EggFiveEgg" or v2.Name == "EggSixEgg" or v2.Name == "EggSevenEgg" or v2.Name == "EggEightEgg" then
-        else
-            warn(v2)
-        end
-    end
-    ]]--
-end)
-
+end
 
 local TeleportWorlds = tpTab:AddDropdown("Worlds", worldListA, false, function(v)
     for i2,v2 in pairs(workspace.Teleports:GetChildren()) do
@@ -485,6 +369,10 @@ local TeleportWorlds = tpTab:AddDropdown("Worlds", worldListA, false, function(v
             end
         end
     end
+end)
+
+local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
+
 end)
 
 -- settings --
