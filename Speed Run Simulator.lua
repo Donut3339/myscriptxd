@@ -1,7 +1,6 @@
 --[[
     To-do:
     - Delete & Upgrade pet (after teleport thing)
-    - Teleport to egg, world, etc.. (countinue soon, tired ;/ )
 ]]
 
 if game:GetService'CoreGui':FindFirstChild'SRSGui' then
@@ -384,7 +383,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                 else
                     if v2:FindFirstChild("Type") or v2.ClassName == "StringValue" then
                         if v == eggListA[1] then
-                            if v2.Name == eggListA[1] then
+                            if v2.Type.Value == eggListA[1] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -395,7 +394,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[2] then
-                            if v2.Name == eggListA[2] then
+                            if v2.Type.Value == eggListA[2] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -406,7 +405,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[3] then
-                            if v2.Name == eggListA[3] then
+                            if v2.Type.Value == eggListA[3] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -417,7 +416,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[4] then
-                            if v2.Name == eggListA[4] then
+                            if v2.Type.Value == eggListA[4] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -428,7 +427,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[5] then
-                            if v2.Name == eggListA[5] then
+                            if v2.Type.Value == eggListA[5] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -439,7 +438,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[6] then
-                            if v2.Name == eggListA[6] then
+                            if v2.Type.Value == eggListA[6] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -450,7 +449,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[7] then
-                            if v2.Name == eggListA[7] then
+                            if v2.Type.Value == eggListA[7] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -461,7 +460,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[8] then
-                            if v2.Name == eggListA[8] then
+                            if v2.Type.Value == eggListA[8] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -472,7 +471,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[9] then
-                            if v2.Name == eggListA[9] then
+                            if v2.Type.Value == eggListA[9] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -483,7 +482,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[10] then
-                            if v2.Name == eggListA[10] then
+                            if v2.Type.Value == eggListA[10] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -494,7 +493,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[11] then
-                            if v2.Name == eggListA[11] then
+                            if v2.Type.Value == eggListA[11] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
@@ -505,7 +504,7 @@ local TeleportEggs = tpTab:AddDropdown("Eggs", eggListA, false, function(v)
                                 end)
                             end
                         elseif v == eggListA[12] then
-                            if v2.Name == eggListA[12] then
+                            if v2.Type.Value == eggListA[12] then
                                 pcall(function()
                                     Char.Humanoid:ChangeState(11)
                                 end)
