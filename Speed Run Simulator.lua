@@ -1,6 +1,6 @@
 --[[
     To-do:
-    - Delete & Upgrade pet (after teleport thing)
+    - Delete & Upgrade pet (right now)
 ]]
 
 if game:GetService'CoreGui':FindFirstChild'SRSGui' then
@@ -172,56 +172,60 @@ local PetValue = PetTab:AddSlider("fpetvalue", "Pet Value", {min = 5, max = 100,
     PetValues = value
 end)
 
-local EquipPet = PetTab:AddButton("fpetequip", "Equip Pet", false, function()
-    if SelectedPet == nil then return end
-    if PetValues == nil then return end
-    for i= 1, tonumber(PetValues) do
-        wait(.1)
-        Remotes.PetEquip:FireServer(SelectedPet)
-    end
-end)
+options1 = {"Equip Pet", "Equip All Pet", "Unequip Pet", "Unequip All Pet"}
+options2 = {"Upgrade Pet", "Upgrade All Pet", "Delete Pet", "Delete All Pet"}
 
-local EquipAllPet = PetTab:AddButton("fequipallpet", "Equip All Pet", false, function()
-    if PetValues == nil then return end
-    for i= 1, tonumber(PetValues) do
-        wait(.1)
-        for i,v in pairs(LocalP.PlayerGui.MainUI.PetUI.SelectionPanel.ScrollingFrame:GetChildren()) do
-            if v:FindFirstChild("NamePetThing") then
-                if v.NamePetThing.Text == "NAME" then
-                else
-                    wait(.1)
-                    Pets1 = v.NamePetThing.Text
-                    Remotes.PetEquip:FireServer(Pets1)
+local Options1 = PetTab:AddDropdown("Options 1", options1, false, function(v)
+    if v == optionsEquip[1] then
+        if SelectedPet == nil then return end
+        if PetValues == nil then return end
+        for i= 1, tonumber(PetValues) do
+            wait(.1)
+            Remotes.PetEquip:FireServer(SelectedPet)
+        end
+    elseif v == optionsEquip[2] then
+        if PetValues == nil then return end
+        for i= 1, tonumber(PetValues) do
+            wait(.1)
+            for i,v in pairs(LocalP.PlayerGui.MainUI.PetUI.SelectionPanel.ScrollingFrame:GetChildren()) do
+                if v:FindFirstChild("NamePetThing") then
+                    if v.NamePetThing.Text == "NAME" then
+                    else
+                        wait(.1)
+                        Pets1 = v.NamePetThing.Text
+                        Remotes.PetEquip:FireServer(Pets1)
+                    end
+                end
+            end
+        end
+    elseif v == optionsEquip[3] then
+        if SelectedPet == nil then return end
+        if PetValues == nil then return end
+        for i= 1, tonumber(PetValues) do
+            wait(.1)
+            Remotes.PetUnequip:FireServer(SelectedPet)
+        end
+    elseif v == optionsEquip[4] then
+        if PetValues == nil then return end
+        for i= 1, tonumber(PetValues) do
+            wait(.1)
+            for i,v in pairs(LocalP.PlayerGui.MainUI.PetUI.SelectionPanel.ScrollingFrame:GetChildren()) do
+                if v:FindFirstChild("NamePetThing") then
+                    if v.NamePetThing.Text == "NAME" then
+                    else
+                        wait(.1)
+                        Pets2 = v.NamePetThing.Text
+                        Remotes.PetUnequip:FireServer(Pets2)
+                    end
                 end
             end
         end
     end
 end)
 
-
-local UnequipPet = PetTab:AddButton("fpetunequip", "Unequip Pet", false, function()
-    if SelectedPet == nil then return end
-    if PetValues == nil then return end
-    for i= 1, tonumber(PetValues) do
-        wait(.1)
-        Remotes.PetUnequip:FireServer(SelectedPet)
-    end
-end)
-
-local UnequipAllPet = PetTab:AddButton("funequipallpet", "Unequip All Pet", false, function()
-    if PetValues == nil then return end
-    for i= 1, tonumber(PetValues) do
-        wait(.1)
-        for i,v in pairs(LocalP.PlayerGui.MainUI.PetUI.SelectionPanel.ScrollingFrame:GetChildren()) do
-            if v:FindFirstChild("NamePetThing") then
-                if v.NamePetThing.Text == "NAME" then
-                else
-                    wait(.1)
-                    Pets2 = v.NamePetThing.Text
-                    Remotes.PetUnequip:FireServer(Pets2)
-                end
-            end
-        end
+local Options2 = PetTab:AddDropdown("Options 2", options2, false, function(v)
+    if v == options2[1] then
+        
     end
 end)
 
