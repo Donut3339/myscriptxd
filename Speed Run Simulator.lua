@@ -266,10 +266,10 @@ for i,v in pairs(workspace.Teleports:GetChildren()) do
     end
 end
 
-for i,v in pairs(workspace:GetDescendants()) do
-    if v:FindFirstChild("pet") or v:FindFirstChild("Detect") then
-        if v.Name == "BillboardGui" or v.Name == "Type" or v.ClassName == "BillboardGui" or v.ClassName == "StringValue" then
-            local EggTypeName = v.Type.Value
+for i2,v2 in pairs(workspace:GetDescendants()) do
+    if v2:FindFirstChild("pet") or v2:FindFirstChild("Detect") then
+        if v2.Name == "BillboardGui" or v2.Name == "Type" or v2.ClassName == "BillboardGui" or v2.ClassName == "StringValue" then
+            local EggTypeName = v2.Type.Value
             table.insert(eggListA, EggTypeName)
         end
     end
