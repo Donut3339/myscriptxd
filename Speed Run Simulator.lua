@@ -24,7 +24,7 @@ end
 if game.PlaceId == 5293755937 then
     game:service'StarterGui':SetCore("SendNotification", {
         Title = RandomCharacters(math.random(5, 5));
-        Text = "> GUI Loaded! <";
+        Text = "> GUI Loaded! <\nLast Update (game too boring for me)";
     })
 else
     return
