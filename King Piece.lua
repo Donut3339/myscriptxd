@@ -113,9 +113,6 @@ local enabled = s1:Cheat("Checkbox", "Enabled", function(state)
                             end)
                             wait()
                             pcall(function()
-                                if LocalP:FindFirstChild("SwimScript") then
-                                    LocalP.Backpack:FindFirstChild("SwimScript"):Destroy()
-                                end
                                 if LocalP:FindFirstChild("Backpack"):FindFirstChild(SelectedWeapon) then
                                     local tool = LocalP:WaitForChild("Backpack"):FindFirstChild(SelectedWeapon)
                                     wait(.4)
@@ -220,3 +217,9 @@ local disabled = s2:Cheat("Button", "Destroy Gui", function()
         return
     end
 end, {text = "Destroy Gui"})
+
+while true and wait() do
+    if LocalP.Backpack:FindFirstChild("SwimScript") then
+        LocalP.Backpack:FindFirstChild("SwimScript"):Destroy()
+    end
+end
