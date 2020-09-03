@@ -500,7 +500,7 @@ local Lib = {}
             end
             if AddWeapon2 then
                 list = {}
-                for _,tool in pairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
+                for _,tool in ipairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
                     if tool:IsA("Tool") then
                         list[i] = tool.Name;
                     end
@@ -658,7 +658,7 @@ local Lib = {}
                             end
                             if AddWeapon2 then
                                 list = {}
-                                for _,tool in pairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
+                                for _,tool in ipairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
                                     if tool:IsA("Tool") then
                                         list[i] = tool.Name
                                     end
@@ -709,7 +709,7 @@ local Lib = {}
                     end
                     if AddWeapon2 then
                         list = {}
-                        for _,tool in pairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
+                        for _,tool in ipairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
                             if tool:IsA("Tool") then
                                 list[i] = tool.Name
                             end
