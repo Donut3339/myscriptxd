@@ -652,7 +652,7 @@ local Lib = {}
                                 list = {}
                                 for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                                     if tools:IsA("Tool") then
-                                        list[i] = tools.Name;
+                                        list[i] = tools.Name
                                     end
                                 end
                             end
@@ -660,7 +660,7 @@ local Lib = {}
                                 list = {}
                                 for _,tool in pairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
                                     if tool:IsA("Tool") then
-                                        list[i] = tool.Name;
+                                        list[i] = tool.Name
                                     end
                                 end
                             end
