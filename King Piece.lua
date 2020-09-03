@@ -28,6 +28,7 @@ end
 Enabled = false
 Disabled = false
 TpDF = false
+Distance = -12
 SkillZ = false
 SkillX = false
 SkillC = false
@@ -130,6 +131,11 @@ for i2,v2 in pairs(Char:GetChildren()) do
     end
 end
 
+-- Distance Textbox --
+local distances = s1:Cheat("Textbox", "Distance", function(value)
+    valDist = value
+end, {placeholder = "Distance"})
+
 -- Enabled Checkbox --
 local enabled = s1:Cheat("Checkbox", "Enabled", function(state)
     Enabled = state
@@ -140,7 +146,7 @@ local enabled = s1:Cheat("Checkbox", "Enabled", function(state)
                      if Enabled and not Disabled and v.Name == SelectedMob then
                         repeat
                             pcall(function()
-                                Char.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame + Vector3.new(0, -12, 0)
+                                Char.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame + Vector3.new(0, Distance, 0)
                             end)
                             wait()
                             pcall(function()
@@ -488,5 +494,12 @@ while true and wait() do
         for i,v in pairs(workspace.Effects:GetChildren()) do
             v:Destroy()
         end
+    end
+    if valDist == nil or valDist == "" then 
+        valDist = Distance -- Default
+        Distance = valDist
+    else 
+        Distance = valDist
+        valDist = Distance
     end
 end
