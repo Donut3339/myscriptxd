@@ -490,13 +490,13 @@ local Lib = {}
             local AddMobs = options.AddMobs or false
             local AddWeapon = options.AddWeapon or false
             if AddWeapon then
-                if LocalP:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or Char:FindFirstChildOfClass("Tool") then
-                    for _,tools in ipairs(LocalP.Backpack:GetChildren()) do
+                if game:service'Players'.LocalPlayer:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or game:service'Players'.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+                    for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                         if tools:IsA("Tool") then
                             list[i] = tools.Name;
                         end
                     end
-                    for _,tool in pairs(Char:GetChildren()) do
+                    for _,tool in pairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
                         if tool:IsA("Tool") then
                             list[i] = tool.Name;
                         end
@@ -646,13 +646,13 @@ local Lib = {}
                                 end
                             end
                             if AddWeapon then
-                                if LocalP:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or Char:FindFirstChildOfClass("Tool") then
-                                    for _,tools in ipairs(LocalP.Backpack:GetChildren()) do
+                                if game:service'Players'.LocalPlayer:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or game:service'Players'.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+                                    for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                                         if tools:IsA("Tool") then
                                             list[i] = tools.Name;
                                         end
                                     end
-                                    for _,tool in pairs(Char:GetChildren()) do
+                                    for _,tool in pairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
                                         if tool:IsA("Tool") then
                                             list[i] = tool.Name;
                                         end
@@ -694,13 +694,13 @@ local Lib = {}
                         end
                     end
                     if AddWeapon then
-                        if LocalP:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or Char:FindFirstChildOfClass("Tool") then
-                            for _,tools in ipairs(LocalP.Backpack:GetChildren()) do
+                        if game:service'Players'.LocalPlayer:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or game:service'Players'.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+                            for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                                 if tools:IsA("Tool") then
                                     list[i] = tools.Name;
                                 end
                             end
-                            for _,tool in pairs(Char:GetChildren()) do
+                            for _,tool in pairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
                                 if tool:IsA("Tool") then
                                     list[i] = tool.Name;
                                 end
