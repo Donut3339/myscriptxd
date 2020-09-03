@@ -6,6 +6,24 @@
 -- Destroy GUI already exist --
 if game:service'CoreGui':FindFirstChild("FinityUI") then game:service'CoreGui':FindFirstChild("FinityUI"):Destroy() end
 
+-- Send a notifications if player on the game --
+if game.PlaceId == 4520749081 then
+    game:service'StarterGui':SetCore("SendNotification", {
+        Title = "Discord Server";
+        Text = "> https://discord.gg/fGHVnPN <";
+    })
+    game:service'StarterGui':SetCore("SendNotification", {
+        Title = "Notification";
+        Text = "> GUI Loaded! <";
+    })
+else
+    game:service'StarterGui':SetCore("SendNotification", {
+        Title = "Notification";
+        Text = "GUI not loaded! you are on wrong game lmao";
+    })
+    return 
+end
+
 -- Global Variable --
 Enabled = false
 Disabled = false
