@@ -57,11 +57,12 @@ FinityWindow.ChangeToggleKey(Enum.KeyCode.Insert)
 
 -- Categories --
 local c1 = FinityWindow:Category("Main")
-local c2 = FinityWindow:Category("Credits")
+local c2 = FinityWindow:Category("Teleports")
+local c999 = FinityWindow:Category("Credits")
 
 -- Credits Sector --
-local s1 = c2:Sector("Finity Library Creator")
-local s2 = c2:Sector("Script Creator")
+local s1 = c999:Sector("Finity Library Creator")
+local s2 = c999:Sector("Script Creator")
 
 -- Credits --
 s1:Cheat("Label", "detourious (v3rmillion)")
@@ -78,11 +79,41 @@ local s2 = c1:Sector("Misc")
 local mobs = s1:Cheat("Dropdown", "Mobs", function(SelectedOption)
     SelectedMob = SelectedOption
 end, {options = {}, default = ""})
+
+-- Remove value duplicated in table/array --
+local function removeDuplicates(arr)
+    local newArray = {}
+    local checkerTbl = {}
+    for _, element in ipairs(arr) do
+        if not checkerTbl[element] then -- if there is not yet a value at the index of element, then it will be nil, which will operate like false in an if statement
+            checkerTbl[element] = true
+            table.insert(newArray, element)
+        end
+    end
+    return newArray
+end
+
+-- Get Mobs and then insert to table/array --
+mobA = {}
 for _,mob in pairs(game:service'ReplicatedStorage'["MOB"]:GetChildren()) do
     if mob:IsA("Model") and mob:FindFirstChild("Humanoid") and mob:FindFirstChild("HumanoidRootPart") then
-        mobs:AddOption(mob.Name)
+        table.insert(mobA, mob.Name)
     end
 end
+
+mobB = removeDuplicates(mobA)
+for i = 1, #mobB do
+    mobs:AddOption(mobB[i])
+end
+
+-- Remove duplicated value in table mobA --
+
+--[[
+array = removeDuplicates(mobA)
+for _,values in next, array do
+    mobs:AddOption(array[values])
+    warn(array[values])
+end]]--
 
 -- Tool's Dropdown --
 local weapon = s1:Cheat("Dropdown", "Weapon", function(SelectedOption)
@@ -218,8 +249,244 @@ local disabled = s2:Cheat("Button", "Destroy Gui", function()
     end
 end, {text = "Destroy Gui"})
 
+-- Teleports Sector --
+local s1 = c2:Sector("Spawnpoint")
+local s2 = c2:Sector("Other")
+
+-- Spawn Dropdown --
+local spawns = s1:Cheat("Dropdown", "Spawn", function(currentOption)
+    reeSpawnpoint = currentOption
+end, {options = {}, default = ""})
+for _,part in pairs(workspace:GetChildren()) do
+    if part:IsA("Part") and part.CanCollide == false and string.find(part.Name, "Spawn%d") then
+        spawns:AddOption(part.Name)
+    end
+end
+
+-- Other Dropdown --
+local others = s2:Cheat("Dropdown", "Other", function(currentOption)
+    reeOthers = currentOption
+end, {options = {"DF Shop 1", "Katana", "Soru", "Gear 4", "Bisento", "Shark Blade", "Half Robot", "Buso Haki", "Pipe", "DF Shop 2", "Ken Haki", "Remove Fruit"}, default = ""}) 
+--[[ 
+    Ken Haki (Spawn 9)
+    Remove Fruit (Spawn 9)
+]]--
+
+-- Teleport Button --
+local tpspawn = s1:Cheat("Button", "Teleport", function()
+    for _,part in pairs(workspace:GetChildren()) do
+        if part:IsA("Part") and part.Name == reeSpawnpoint then
+            Char.Humanoid:ChangeState(11)
+            Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 2, 0)
+        end
+    end
+end, {text = "Teleport"})
+
+-- Teleport Button --
+local tpothers = s2:Cheat("Button", "Teleport", function()
+    if reeOthers == "DF Shop 1" then
+        local Spawnpoints = "Spawn1"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "DFruitShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Katana" then
+        local Spawnpoints = "Spawn1"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SwordShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Soru" then
+        local Spawnpoints = "Spawn3"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SoruShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Gear 4" then
+        local Spawnpoints = "Spawn4"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "ShopGear4" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Bisento" then
+        local Spawnpoints = "Spawn5"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SwordShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Shark Blade" then
+        local Spawnpoints = "Spawn6"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SwordShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Half Robot" then
+        local Spawnpoints = "Spawn6"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "CyborgShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Buso Haki" then
+        local Spawnpoints = "Spawn8"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "BusoShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Pipe" then
+        local Spawnpoints = "Spawn8"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SwordShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "DF Shop 2" then
+        local Spawnpoints = "Spawn8"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "DFruitShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Ken Haki" then
+        local Spawnpoints = "Spawn9"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "KenShop" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    elseif reeOthers == "Remove Fruit" then
+        local Spawnpoints = "Spawn9"
+        for _,part in pairs(workspace:GetChildren()) do
+            if part:IsA("Part") and part.Name == Spawnpoints then
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                wait(.6)
+                for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
+                    if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "ShopRemoveFruit" then
+                        local root = v2.HumanoidRootPart.CFrame
+                        Char.Humanoid:ChangeState(11)
+                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                    end
+                end
+            end
+        end
+    end
+end, {text = "Teleport"})
+
+-- Remove sea water damage & Remove effects game like Dash, Skill Effect, etc --
 while true and wait() do
     if LocalP.Backpack:FindFirstChild("SwimScript") then
         LocalP.Backpack:FindFirstChild("SwimScript"):Destroy()
+    end
+    if workspace.Effects.ChildAdded then
+        for i,v in pairs(workspace.Effects:GetChildren()) do
+            v:Destroy()
+        end
     end
 end
