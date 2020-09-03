@@ -490,6 +490,7 @@ local Lib = {}
             local AddMobs = options.AddMobs or false
             local AddWeapon = options.AddWeapon or false
             if AddWeapon then
+                list = {}
                 if game:service'Players'.LocalPlayer:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or game:service'Players'.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
                     for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                         if tools:IsA("Tool") then
@@ -646,6 +647,7 @@ local Lib = {}
                                 end
                             end
                             if AddWeapon then
+                                list = {}
                                 if game:service'Players'.LocalPlayer:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or game:service'Players'.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
                                     for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                                         if tools:IsA("Tool") then
@@ -694,6 +696,7 @@ local Lib = {}
                         end
                     end
                     if AddWeapon then
+                        list = {}
                         if game:service'Players'.LocalPlayer:FindFirstChild("Backpack"):FindFirstChildOfClass("Tool") or game:service'Players'.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
                             for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                                 if tools:IsA("Tool") then
