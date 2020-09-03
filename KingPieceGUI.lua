@@ -496,6 +496,7 @@ local Lib = {}
                         list[i] = tools.Name;
                     end
                 end
+            end
             if AddMobs then
                 list = {}
                 for i,v in ipairs(game:service'ReplicatedStorage'["MOB"]:GetChildren()) do
