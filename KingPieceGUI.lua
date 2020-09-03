@@ -488,24 +488,14 @@ local Lib = {}
             local PlayerList = options.PlayerList or false
             local Search = options.search or false
             local AddMobs = options.AddMobs or false
-            local AddWeapon1 = options.AddWeapon1 or false
-            local AddWeapon2 = options.AddWeapon2 or false
-            if AddWeapon1 then
+            local AddWeapon = options.AddWeapon or false
+            if AddWeapon then
                 list = {}
-                for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
+                for i,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                     if tools:IsA("Tool") then
-                        list[_] = tools.Name;
+                        list[i] = tools.Name;
                     end
                 end
-            end
-            if AddWeapon2 then
-                list = {}
-                for _,tool in ipairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
-                    if tool:IsA("Tool") then
-                        list[_] = tool.Name;
-                    end
-                end
-            end
             if AddMobs then
                 list = {}
                 for i,v in ipairs(game:service'ReplicatedStorage'["MOB"]:GetChildren()) do
@@ -648,19 +638,11 @@ local Lib = {}
                                     end
                                 end
                             end
-                            if AddWeapon1 then
+                            if AddWeapon then
                                 list = {}
-                                for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
+                                for i,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                                     if tools:IsA("Tool") then
-                                        list[_] = tools.Name
-                                    end
-                                end
-                            end
-                            if AddWeapon2 then
-                                list = {}
-                                for _,tool in ipairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
-                                    if tool:IsA("Tool") then
-                                        list[_] = tool.Name
+                                        list[i] = tools.Name
                                     end
                                 end
                             end
@@ -699,19 +681,11 @@ local Lib = {}
                             end
                         end
                     end
-                    if AddWeapon1 then
+                    if AddWeapon then
                         list = {}
-                        for _,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
+                        for i,tools in ipairs(game:service'Players'.LocalPlayer.Backpack:GetChildren()) do
                             if tools:IsA("Tool") then
-                                list[_] = tools.Name
-                            end
-                        end
-                    end
-                    if AddWeapon2 then
-                        list = {}
-                        for _,tool in ipairs(game:service'Players'.LocalPlayer.Character:GetChildren()) do
-                            if tool:IsA("Tool") then
-                                list[_] = tool.Name
+                                list[i] = tools.Name
                             end
                         end
                     end
