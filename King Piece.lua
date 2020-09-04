@@ -24,6 +24,10 @@ else
     return 
 end
 
+-- Local Variable --
+local Players = game:service'Players'
+local LocalP = Players.LocalPlayer
+
 -- Global Variable --
 Enabled = false
 Disabled = false
@@ -35,16 +39,10 @@ SkillC = false
 SkillV = false
 SkillB = false
 
--- Local Variable --
-local RunService = game:service'RunService'
-local Players = game:service'Players'
-local LocalP = Players.LocalPlayer
-local Char = LocalP.Character
-
 -- NoClip --
-Stepped = RunService.RenderStepped:Connect(function()
+Stepped = game:service'RunService'.RenderStepped:Connect(function()
     if Enabled then
-        Char.Humanoid:ChangeState(11)
+        LocalP.Character.Humanoid:ChangeState(11)
     end
     if Disabled then
         Stepped:Disconnect()
@@ -107,15 +105,6 @@ for i = 1, #mobB do
     mobs:AddOption(mobB[i])
 end
 
--- Remove duplicated value in table mobA --
-
---[[
-array = removeDuplicates(mobA)
-for _,values in next, array do
-    mobs:AddOption(array[values])
-    warn(array[values])
-end]]--
-
 -- Tool's Dropdown --
 local weapon = s1:Cheat("Dropdown", "Weapon", function(SelectedOption)
     SelectedWeapon = SelectedOption
@@ -125,7 +114,7 @@ for i,v in ipairs(LocalP.Backpack:GetChildren()) do
         weapon:AddOption(v.Name)
     end
 end
-for i2,v2 in pairs(Char:GetChildren()) do
+for i2,v2 in pairs(LocalP.Character:GetChildren()) do
     if v2:IsA("Tool") then
         weapon:AddOption(v2.Name)
     end
@@ -142,21 +131,21 @@ local enabled = s1:Cheat("Checkbox", "Enabled", function(state)
     while Enabled do
         if Enabled and not Disabled then
             for i,v in pairs(game:service'ReplicatedStorage'["MOB"]:GetChildren()) do
-                if Enabled and not Disabled and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                     if Enabled and not Disabled and v.Name == SelectedMob then
+                if Enabled and not Disabled and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and v.Name == SelectedMob then
+                     if Enabled and not Disabled then
                         repeat
                             pcall(function()
-                                Char.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame + Vector3.new(0, Distance, 0)
+                                LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame + Vector3.new(0, Distance, 0)
                             end)
                             wait()
                             pcall(function()
                                 if LocalP:FindFirstChild("Backpack"):FindFirstChild(SelectedWeapon) then
                                     local tool = LocalP:WaitForChild("Backpack"):FindFirstChild(SelectedWeapon)
                                     wait(.4)
-                                    Char.Humanoid:EquipTool(tool)
+                                    LocalP.Character.Humanoid:EquipTool(tool)
                                 end
-                                if Char:FindFirstChildOfClass("Tool").Equipped then
-                                    local tool = Char:FindFirstChildOfClass("Tool")
+                                if LocalP.Character:FindFirstChildOfClass("Tool").Equipped then
+                                    local tool = LocalP.Character:FindFirstChildOfClass("Tool")
                                     if tool:FindFirstChildOfClass("RemoteEvent") then
                                         for _,event in pairs(tool:GetChildren()) do
                                             if event:IsA("RemoteEvent") then
@@ -176,11 +165,11 @@ local enabled = s1:Cheat("Checkbox", "Enabled", function(state)
                                                 end
                                                 if SkillV and event.Name == "V" then
                                                     wait(1)
-                                                    event:FireServer(Char.HumanoidRootPart.Position)
+                                                    event:FireServer(LocalP.Character.HumanoidRootPart.Position)
                                                 end
                                                 if SkillB and event.Name == "B" then
                                                     wait(1)
-                                                    event:FireServer(Char.HumanoidRootPart.Position)
+                                                    event:FireServer(LocalP.Character.HumanoidRootPart.Position)
                                                 end
                                             end
                                         end
@@ -188,10 +177,6 @@ local enabled = s1:Cheat("Checkbox", "Enabled", function(state)
                                 end
                             end)
                         until Disabled or not Enabled or not v.Parent or v.Humanoid.Health <= 0
-                        if Char.Humanoid.Health < 59 then
-                            Char.Humanoid:ChangeState(11)
-                            Char.HumanoidRootPart.CFrame = CFrame.new(0, 2000, 0)
-                        end
                     end
                 end
             end
@@ -232,8 +217,8 @@ local tpdf = s2:Cheat("Checkbox", "TP Devil Fruit", function(state)
         for i,v in pairs(workspace:GetChildren()) do
             if v:IsA("Tool") then
                 local toolPart = v.Handle.CFrame
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = toolPart + Vector3.new(0, 1, 0)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = toolPart + Vector3.new(0, 1, 0)
             end
         end
         --end
@@ -268,17 +253,13 @@ end
 local others = s2:Cheat("Dropdown", "Other", function(currentOption)
     reeOthers = currentOption
 end, {options = {"DF Shop 1", "Katana", "Soru", "Gear 4", "Bisento", "Shark Blade", "Half Robot", "Buso Haki", "Pipe", "DF Shop 2", "Ken Haki", "Remove Fruit"}, default = ""}) 
---[[ 
-    Ken Haki (Spawn 9)
-    Remove Fruit (Spawn 9)
-]]--
 
 -- Teleport Button --
 local tpspawn = s1:Cheat("Button", "Teleport", function()
     for _,part in pairs(workspace:GetChildren()) do
         if part:IsA("Part") and part.Name == reeSpawnpoint then
-            Char.Humanoid:ChangeState(11)
-            Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 2, 0)
+            LocalP.Character.Humanoid:ChangeState(11)
+            LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 2, 0)
         end
     end
 end, {text = "Teleport"})
@@ -289,14 +270,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn1"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "DFruitShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -305,14 +286,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn1"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SwordShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -321,14 +302,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn3"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SoruShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -337,14 +318,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn4"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "ShopGear4" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -353,14 +334,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn5"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SwordShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -369,14 +350,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn6"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SwordShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -385,14 +366,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn6"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "CyborgShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -401,14 +382,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn8"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "BusoShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -417,14 +398,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn8"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "SwordShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -433,14 +414,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn8"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "DFruitShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -449,14 +430,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn9"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "KenShop" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -465,14 +446,14 @@ local tpothers = s2:Cheat("Button", "Teleport", function()
         local Spawnpoints = "Spawn9"
         for _,part in pairs(workspace:GetChildren()) do
             if part:IsA("Part") and part.Name == Spawnpoints then
-                Char.Humanoid:ChangeState(11)
-                Char.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
+                LocalP.Character.Humanoid:ChangeState(11)
+                LocalP.Character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 0, 3)
                 wait(.6)
                 for i2,v2 in pairs(workspace.AntiTPNPC:GetChildren()) do
                     if v2:IsA("Model") and v2:FindFirstChild("HumanoidRootPart") and v2.Name == "ShopRemoveFruit" then
                         local root = v2.HumanoidRootPart.CFrame
-                        Char.Humanoid:ChangeState(11)
-                        Char.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
+                        LocalP.Character.Humanoid:ChangeState(11)
+                        LocalP.Character.HumanoidRootPart.CFrame = root + Vector3.new(0, 0, 3)
                     end
                 end
             end
@@ -491,10 +472,8 @@ while true and wait() do
         end
     end
     if valDist == nil or valDist == "" then 
-        valDist = Distance -- Default
-        Distance = valDist
+        valDist = Distance
     else 
         Distance = valDist
-        valDist = Distance
     end
 end
