@@ -228,20 +228,15 @@ end)
 local tpdf = s2:Cheat("Checkbox", "TP Devil Fruit", function(state)
     TpDF = state
     while TPDF and wait() do
-        if workspace:FindFirstChildOfClass("Tool") then
-            for i,v in pairs(workspace:GetChildren()) do
-                if v:IsA("Tool") and v:FindFirstChild("Handle") then
-                    if v.ClassName == "Part" then
-                        Char.HumanoidRootPart.CFrame = v:FindFirstChildOfClass("Part").Position
-                        game:service'StarterGui':SetCore('ChatMakeSystemMessage', {
-                            Text = 'You just found a ' .. v.Parent .. '!';
-                            Color = Color3.new(0, 255 / 255, 255 / 255); 
-                            Font = Enum.Font.SourceSansBold;
-                        })
-                    end
-                end
+        --if workspace:FindFirstChildOfClass("Tool").ChildAdded then
+        for i,v in pairs(workspace:GetChildren()) do
+            if v:IsA("Tool") then
+                local toolPart = v.Handle.CFrame
+                Char.Humanoid:ChangeState(11)
+                Char.HumanoidRootPart.CFrame = toolPart + Vector3.new(0, 1, 0)
             end
         end
+        --end
     end
 end)
 
