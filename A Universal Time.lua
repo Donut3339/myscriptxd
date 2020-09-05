@@ -1,3 +1,8 @@
+--[[
+    A Universal Time v1.0
+    By Jexytd or QuadSquad (@v3rmillion)
+]]
+
 -- Destroy GUI already exist --
 if game:service'CoreGui':FindFirstChild("FinityUI") then game:service'CoreGui':FindFirstChild("FinityUI"):Destroy() end
 
