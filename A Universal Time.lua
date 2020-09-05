@@ -5,7 +5,7 @@ if game:service'CoreGui':FindFirstChild("FinityUI") then game:service'CoreGui':F
 if game.PlaceId == 5130598377 then
     game:service'StarterGui':SetCore("SendNotification", {
         Title = "Discord Server";
-        Text = "> https://discord.gg/fGHVnPN <";
+        Text = "> https://discord.gg/K4waTHQ <";
     })
     game:service'StarterGui':SetCore("SendNotification", {
         Title = "Notification";
