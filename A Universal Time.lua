@@ -175,7 +175,7 @@ local asellreqarrow = s1:Cheat("Checkbox", "Auto-Sell ReqArrow", function(state)
 end)
 
 -- Update dropdown --
-local updropd = s2:Cheat("Button", "Update Dropdown", function()
+local updropd = s2:Cheat("Button", "Update Item List", function()
     for i = 1, #itemB do
         items:RemoveOption(itemB[i])
     end
