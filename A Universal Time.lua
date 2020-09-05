@@ -72,6 +72,8 @@ local s3 = c1:Sector("Local")
 -- Items Dropdown --
 local items = s1:Cheat("Dropdown", "Item", function(currentOption)
     ItemsSelect = currentOption
+    wait(1.3)
+    updateItemList()
 end, {options = {}, default = ""})
 
 -- Remove value duplicated in table/array --
@@ -100,6 +102,23 @@ for i = 1, #itemB do
     items:AddOption(itemB[i])
 end
 
+function updateItemList()
+    for i = 1, #itemB do
+        items:RemoveOption(itemB[i])
+    end
+    wait()
+    itemA = {}
+    for _,tool in pairs(workspace.Items:GetChildren()) do
+        if tool:IsA("Tool") then
+            table.insert(itemA, tool.Name)
+        end
+    end
+
+    itemB = removeDuplicates(itemA)
+    for i2 = 1, #itemB do
+        items:AddOption(itemB[i2])
+    end
+end
 
 -- Teleport Button --
 local teleport = s1:Cheat("Button", "Teleport", function()
@@ -177,25 +196,6 @@ local asellreqarrow = s1:Cheat("Checkbox", "Auto-Sell ReqArrow", function(state)
         end
     end
 end)
-
--- Update dropdown --
-local updropd = s2:Cheat("Button", "Update Item List", function()
-    for i = 1, #itemB do
-        items:RemoveOption(itemB[i])
-    end
-    wait()
-    itemA = {}
-    for _,tool in pairs(workspace.Items:GetChildren()) do
-        if tool:IsA("Tool") then
-            table.insert(itemA, tool.Name)
-        end
-    end
-
-    itemB = removeDuplicates(itemA)
-    for i2 = 1, #itemB do
-        items:AddOption(itemB[i2])
-    end
-end, {text = "Update Dropdown"})
 
 -- Destroy Gui Button
 local disabled = s2:Cheat("Button", "Destroy Gui", function()
