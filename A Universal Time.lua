@@ -155,12 +155,7 @@ local asellarrow = s1:Cheat("Checkbox", "Auto-Sell Arrow", function(state)
     SellArrow = state
     while SellArrow and wait(.1) do
         if LocalP:FindFirstChild("Backpack").ChildAdded and LocalP.Backpack:FindFirstChild("Arrow") then
-            if Char:FindFirstChildOfClass("Tool").Equipped then
-                local tool = Char:FindFirstChildOfClass("Tool")
-                Char.Humanoid:UnequipTools(tool)
-            elseif LocalP.Backpack.ChildAdded then
-                game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Arrow")
-            end
+            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Arrow")
         end
     end
 end)
@@ -171,12 +166,7 @@ local asellroka = s1:Cheat("Checkbox", "Auto-Sell Rokaka", function(state)
     SellRoka = state
     while SellRoka and wait(.1) do
         if LocalP:FindFirstChild("Backpack").ChildAdded and LocalP.Backpack:FindFirstChild("Rokakaka Fruit") then
-            if Char:FindFirstChildOfClass("Tool").Equipped then
-                local tool = Char:FindFirstChildOfClass("Tool")
-                Char.Humanoid:UnequipTools(tool)
-            elseif LocalP.Backpack.ChildAdded then
-                game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Rokakaka Fruit")
-            end
+            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Rokakaka Fruit")
         end
     end
 end)
@@ -187,12 +177,7 @@ local asellreqarrow = s1:Cheat("Checkbox", "Auto-Sell ReqArrow", function(state)
     SellReqArrow = state
     while SellReqArrow and wait(.1) do
         if LocalP:FindFirstChild("Backpack").ChildAdded and LocalP.Backpack:FindFirstChild("Requiem Arrow") then
-            if Char:FindFirstChildOfClass("Tool").Equipped then
-                local tool = Char:FindFirstChildOfClass("Tool")
-                Char.Humanoid:UnequipTools(tool)
-            elseif LocalP.Backpack.ChildAdded then
-                game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Requiem Arrow")
-            end
+            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Requiem Arrow")
         end
     end
 end)
