@@ -39,6 +39,7 @@ SellRoka = false
 SellReqArrow = false
 wSpeed = false
 jPower = false
+CollectMoney = false
 
 -- Local Variable --
 local Players = game:service'Players'
@@ -136,14 +137,28 @@ end, {text = "Teleport"})
 -- Teleport All Item Checkbox --
 local tpallitems = s1:Cheat("Checkbox", "Tp All Items", function(state)
     local Char = LocalP.Character
-    local tInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
     TpAllItem = state
     while TpAllItem do
         for i,v in pairs(workspace.Items:GetChildren()) do
             if v:IsA("Tool") and v:FindFirstChildOfClass("MeshPart") then
+                local tInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
                 local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
                 Tween:Play()
                 Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+            end
+        end
+    end
+end)
+
+-- Collect Money Checkbox --
+local collectmoney = s1:Cheat("Checkbox", "Collect Money", function(state)
+    local Char = LocalP.Character
+    CollectMoney = state
+    while CollectMoney and wait(.01) do
+        if Char and Char:FindFirstChildOfClass("Tool") then
+            local tool = Char:FindFirstChildOfClass("Tool")
+            if tool.Name == "Money" and tool.Equipped then
+                tool:Activate()
             end
         end
     end
