@@ -46,7 +46,6 @@ FinityWindow.ChangeToggleKey(Enum.KeyCode.Insert)
 
 -- Categories --
 local c1 = FinityWindow:Category("Main")
-local c2 = FinityWindow:Category("Teleports")
 local c999 = FinityWindow:Category("Credits")
 
 -- Credits Sector --
@@ -237,9 +236,9 @@ end)
 while true do
     if jPower then
         if jpValue == nil then jpValue = 30 end
-        LocalP.Character.Humanoid.JumpPower.Value = jpValue 
+        LocalP.Character.Humanoid.JumpPower = jpValue 
     else 
-        LocalP.Character.Humanoid.JumpPower.Value = 50 
+        LocalP.Character.Humanoid.JumpPower = 50 
     end
     wait()
     if wSpeed then
