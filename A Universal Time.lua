@@ -72,7 +72,7 @@ local s3 = c1:Sector("Local")
 -- Items Dropdown --
 local items = s1:Cheat("Dropdown", "Item", function(currentOption)
     ItemsSelect = currentOption
-    wait(1.3)
+    wait()
     updateItemList()
 end, {options = {}, default = ""})
 
