@@ -160,12 +160,17 @@ end)
 local collectmoney = s1:Cheat("Checkbox", "Collect Money", function(state)
     local Char = LocalP.Character
     CollectMoney = state
-    while CollectMoney and wait(.01) do
+    while CollectMoney do
         if Char and Char:FindFirstChildOfClass("Tool") then
             local tool = Char:FindFirstChildOfClass("Tool")
             if tool.Name == "Money" and tool.Equipped then
                 tool:Activate()
             end
+        end
+        wait()
+        if LocalP:FindFirstChild("Backpack"):FindFirstChild("Money") then
+            local tool = LocalP:WaitForChild("Backpack"):FindFirstChild(Money)
+            LocalP.Character.Humanoid:EquipTool(tool)
         end
     end
 end)
