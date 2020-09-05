@@ -136,14 +136,14 @@ end, {text = "Teleport"})
 -- Teleport All Item Checkbox --
 local tpallitems = s1:Cheat("Checkbox", "Tp All Items", function(state)
     local Char = LocalP.Character
-    local tInfo = TweenInfo.new(1.1, Enum.EasingStyle.Linear)
+    local tInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
     TpAllItem = state
-    while TpAllItem and wait() do
+    while TpAllItem do
         for i,v in pairs(workspace.Items:GetChildren()) do
             if v:IsA("Tool") and v:FindFirstChildOfClass("MeshPart") then
-                game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame + Vector3.new(0, 0, 0)}):Play()
-                wait(v.Handle.Position + Vector3.new(0, 0, 0) / 1.1)
-                Char.Humanoid:ChangeState(3)
+                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                Tween:Play()
+                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
             end
         end
     end
@@ -205,11 +205,23 @@ end, {min = 16, max = 200, suffix = ""})
 -- WalkSpeed Checkbox --
 local ws = s3:Cheat("Checkbox", "Walkspeed", function(state)
     wSpeed = state
+    if wSpeed then
+        if speedVal == nil then speedVal = 30 end
+        LocalP.Character.Humanoid.WalkSpeed = speedVal 
+    else 
+        LocalP.Character.Humanoid.WalkSpeed = 16  
+    end
 end)
 
 -- JumpPower Checkbox --
 local ws = s3:Cheat("Checkbox", "JumpPower", function(state)
     jPower = state
+    if jPower then
+        if jpValue == nil then jpValue = 30 end
+        LocalP.Character.Humanoid.JumpPower = jpValue 
+    else 
+        LocalP.Character.Humanoid.JumpPower = 50 
+    end
 end)
 
 -- Anti TS Checkbox --
@@ -223,21 +235,7 @@ local antits = s3:Cheat("Checkbox", "Anti-TS", function(state)
 end)
 
 -- yeet
-while true do
-    if jPower then
-        if jpValue == nil then jpValue = 30 end
-        LocalP.Character.Humanoid.JumpPower = jpValue 
-    else 
-        LocalP.Character.Humanoid.JumpPower = 50 
-    end
-    wait()
-    if wSpeed then
-        if speedVal == nil then speedVal = 30 end
-        LocalP.Character.Humanoid.WalkSpeed = speedVal 
-    else 
-        LocalP.Character.Humanoid.WalkSpeed = 16  
-    end
-
+while true and wait() do
     if not game:service'CoreGui':FindFirstChild("FinityUI") then
         return
     end
