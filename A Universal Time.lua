@@ -40,6 +40,7 @@ SellReqArrow = false
 wSpeed = false
 jPower = false
 CollectMoney = false
+tweenSpeed = 2
 
 -- Local Variable --
 local Players = game:service'Players'
@@ -121,15 +122,20 @@ function updateItemList()
     end
 end
 
+-- TP Speed Textbox --
+local tpspeed = s1:Cheat("Textbox", "Speed TP", function(value)
+    tweenSpeed = tonumber(value)
+end, {placeholder = "Value"})
+
 -- Teleport Button --
 local teleport = s1:Cheat("Button", "Teleport", function()
     local Char = LocalP.Character
     for i,v in pairs(workspace.Items:GetChildren()) do
         if v:IsA("Tool") and v.Name == ItemsSelect then
-            local tInfo = TweenInfo.new(2, Enum.EasingStyle.Linear)
+            local tInfo = TweenInfo.new(tweenSpeed, Enum.EasingStyle.Linear)
             Char.Humanoid:ChangeState(11)
             game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame + Vector3.new(0, 1, 0)}):Play()
-            wait(v.Handle.Position + Vector3.new(0, 1, 0) / 100)
+            wait(v.Handle.Position + Vector3.new(0, 1, 0) / tweenSpeed)
         end
     end
 end, {text = "Teleport"})
@@ -141,7 +147,7 @@ local tpallitems = s1:Cheat("Checkbox", "Tp All Items", function(state)
     while TpAllItem do
         for i,v in pairs(workspace.Items:GetChildren()) do
             if v:IsA("Tool") and v:FindFirstChildOfClass("MeshPart") then
-                local tInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+                local tInfo = TweenInfo.new(tweenSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
                 local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
                 Tween:Play()
                 Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
