@@ -252,4 +252,8 @@ while true do
     else 
         LocalP.Character.Humanoid.WalkSpeed = 16  
     end
+
+    if not game:service'CoreGui':FindFirstChild("FinityUI") then
+        return
+    end
 end
