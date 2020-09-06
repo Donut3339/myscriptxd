@@ -50,6 +50,12 @@ DioDiaryTp = false
 HolyDiaryTp = false
 WatchTp = false
 TPCertainItems = false
+ItemEsp = false
+ArrowF = false
+RokaF = false
+KujoCapF = false
+MoneyF = false
+NoClip = false
 
 -- Local Variable --
 local Players = game:service'Players'
@@ -186,6 +192,103 @@ local collectmoney = s1:Cheat("Checkbox", "Collect Money", function(state)
    end
 end)
 
+-- Noclip Checkbox --
+local noclipped = s2:Cheat("Checkbox", "No-Clip", function(state)
+    NoClip = state
+    Stepped = game:service'RunService'.RenderStepped:Connect(function()
+        if NoClip == true then
+            LocalP.Character.Humanoid:ChangeState(11)
+        end
+        if NoClip == false then
+            Stepped:Disconnect()
+        end
+    end)
+end)
+
+-- Item Esp Button
+local itemesp = s2:Cheat("Checkbox", "Item ESP", function(state)
+    local function isnil(thing)
+        return (thing == nil)
+    end
+    local function hellno()
+        for i,v in pairs(workspace.Items:GetChildren()) do
+            if v:IsA("Tool") and v:FindFirstChild("Handle") then
+                if not isnil(v.Handle) and not v.Handle:FindFirstChild("NameEsp") then
+                    pcall(function()
+                        local bbGui = Instance.new("BillboardGui")
+                        bbGui.Name = "NameEsp"
+                        bbGui.Parent = v.Handle
+                        bbGui.Size = UDim2.new(1,200, 1,30)
+                        bbGui.Adornee = v.Handle
+                        bbGui.AlwaysOnTop = true
+                        bbGui.Active = true
+                        local Name = Instance.new("TextLabel")
+                        Name.Name = "NameItem"
+                        Name.Parent = bbGui
+                        Name.Text = (v.Name .. " \n" .. LocalP:DistanceFromCharacter(v.Handle.Position) .. "M")
+                        Name.Size = UDim2.new(1,0,1,0)
+                        Name.TextYAlignment = "Top"
+                        Name.TextColor3 = Color3.new(1, 1, 1)
+                        Name.BackgroundTransparency = 1
+                    end)
+                else
+                    if v.Name == "Arrow" then
+                        v.Handle:FindFirstChild("NameEsp").NameItem.TextColor3 = Color3.new(245/255, 205/255, 48/255)
+                    elseif v.Name == "Rokakaka Fruit" then
+                        v.Handle:FindFirstChild("NameEsp").NameItem.TextColor3 = Color3.new(196/255, 40/2555, 28/255)
+                    elseif v.Name == "Money" then
+                        v.Handle:FindFirstChild("NameEsp").NameItem.TextColor3 = Color3.new(75/255, 200/255, 75/255)
+                    elseif v.Name == "Rokakaka Fruit" then
+                        v.Handle:FindFirstChild("NameEsp").NameItem.TextColor3 = Color3.new(13/255, 105/255, 172/255)
+                    elseif v.Name == "Holy Diary" then
+                        v.Handle:FindFirstChild("NameEsp").NameItem.TextColor3 = Color3.new(218/255, 133/255, 65/255)
+                    end
+                    v.Handle:FindFirstChild("NameEsp").NameItem.Text = ""
+                    v.Handle:FindFirstChild("NameEsp").NameItem.Text = (v.Name .. " \n" .. LocalP:DistanceFromCharacter(v.Handle.Position) .. "M") 
+                end
+            end
+        end
+        wait(.2)
+    end
+    ItemEsp = state
+    while ItemEsp and wait(.5) do
+        if ItemEsp then
+            hellno()
+        else
+            for _,tool in pairs(workspace.Items:GetChildren()) do
+                if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+                    if tool.Handle:FindFirstChild("NameEsp") then
+                        local nameEsp = tool.Handle:FindFirstChild("NameEsp")
+                        nameEsp:Destroy()
+                    end
+                end
+            end
+        end
+    end
+ end)
+
+ --[[ Soon during this night my brain lagging ;p
+ -- ESP Arrow Checkbox --
+local arrowesp = s2:Cheat("Checkbox", "ESP Arrow", function(state)
+    ArrowF = state
+end)
+
+ -- ESP Rokakaka Checkbox --
+local rokaesp = s2:Cheat("Checkbox", "ESP Rokakaka", function(state)
+    RokaF = state
+end)
+
+  -- ESP Kujo Cap Checkbox --
+local kujocapesp = s2:Cheat("Checkbox", "ESP Kujo Jotaro Cap", function(state)
+    KujoCapF = state
+ end)
+
+   -- ESP Money Checkbox --
+local monetesp = s2:Cheat("Checkbox", "ESP Money", function(state)
+    MoneyF = state
+end)
+]]--
+
 -- Destroy Gui Button
 local disabled = s2:Cheat("Button", "Destroy Gui", function()
    if game:service'CoreGui':FindFirstChild("FinityUI") then game:service'CoreGui':FindFirstChild("FinityUI"):Destroy() end
@@ -261,7 +364,7 @@ local tpcertainitems = s1:Cheat("Checkbox", "Teleport", function(state)
     TPCertainItems = state
     while TPCertainItems do
         for i,v in pairs(workspace.Items:GetChildren()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and string.find(v.Name, NameItems) then
+            if v:IsA("Tool") and v:FindFirstChild("Handle") and string.find(v.Name, NameItems) and not NameItems == "" then
                 local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
                 local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
                 Tween:Play()
