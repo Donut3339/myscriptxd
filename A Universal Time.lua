@@ -252,11 +252,11 @@ local tpspeed2 = s1:Cheat("Textbox", "Speed TP", function(value)
  end, {placeholder = "Value"})
 
  local itemname = s1:Cheat("Textbox", "Item Name", function(value)
-    NameItems = tonumber(value)
+    NameItems = tostring(value)
  end, {placeholder = "Name"})
 
   -- Teleport Arrow Checkbox --
-local tpcertainitems = s1:Cheat("Checkbox", "Tp Arrow", function(state)
+local tpcertainitems = s1:Cheat("Checkbox", "Teleport", function(state)
     local Char = LocalP.Character
     TPCertainItems = state
     while TPCertainItems do
