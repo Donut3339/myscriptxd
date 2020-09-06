@@ -422,6 +422,28 @@ local asellarrow = s2:Cheat("Checkbox", "Auto-Sell Arrow", function(state)
     end
  end)
 
+  -- AutoSellDioDiary Checkbox --
+  local asellreqarrow = s2:Cheat("Checkbox", "Auto-Sell Dio Diary", function(state)
+    local Char = LocalP.Character
+    SellReqArrow = state
+    while SellReqArrow and wait(.1) do
+        if LocalP:FindFirstChild("Backpack").ChildAdded and LocalP.Backpack:FindFirstChild(string.find(LocalP.Backpack:FindFirstChildOfClass("Tool").Name, "Dio")) then
+            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Requiem Arrow")
+        end
+    end
+ end)
+
+  -- AutoSellHolyDiary Checkbox --
+  local asellgodgifts = s2:Cheat("Checkbox", "Auto-Sell Holy Diary", function(state)
+    local Char = LocalP.Character
+    SellGodGifts = state
+    while SellGodGifts and wait(.1) do
+        if LocalP:FindFirstChild("Backpack").ChildAdded and LocalP.Backpack:FindFirstChild("Holy Diary") then
+            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Gift From The Gods")
+        end
+    end
+ end)
+
 -- yeet
 while true and wait() do
    if not game:service'CoreGui':FindFirstChild("FinityUI") then
