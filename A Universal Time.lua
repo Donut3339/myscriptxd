@@ -49,6 +49,7 @@ MoneyTp = false
 DioDiaryTp = false
 HolyDiaryTp = false
 WatchTp = false
+TPCertainItems = false
 
 -- Local Variable --
 local Players = game:service'Players'
@@ -249,6 +250,27 @@ local s2 = c2:Sector("Sell")
 local tpspeed2 = s1:Cheat("Textbox", "Speed TP", function(value)
     tweenSpeed2 = tonumber(value)
  end, {placeholder = "Value"})
+
+ local itemname = s1:Cheat("Textbox", "Item Name", function(value)
+    NameItems = tonumber(value)
+ end, {placeholder = "Name"})
+
+  -- Teleport Arrow Checkbox --
+local tpcertainitems = s1:Cheat("Checkbox", "Tp Arrow", function(state)
+    local Char = LocalP.Character
+    TPCertainItems = state
+    while TPCertainItems do
+        for i,v in pairs(workspace.Items:GetChildren()) do
+            if v:IsA("Tool") and v:FindFirstChild("Handle") and string.find(v.Name, NameItems) then
+                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                Tween:Play()
+                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+            end
+        end
+        wait()
+    end
+ end)
 
  -- Teleport Arrow Checkbox --
 local tparrow = s1:Cheat("Checkbox", "Tp Arrow", function(state)
