@@ -51,6 +51,7 @@ HolyDiaryTp = false
 WatchTp = false
 TPCertainItems = false
 ItemEsp = false
+LineEsp = false
 ArrowF = false
 RokaF = false
 KujoCapF = false
@@ -60,6 +61,13 @@ NoClip = false
 -- Local Variable --
 local Players = game:service'Players'
 local LocalP = Players.LocalPlayer
+
+-- Get LocalPlayer Camera
+local MyCam = workspace:FindFirstChildOfClass("Camera")
+if MyCam == nil then
+	warn("WHAT KIND OF BLACK MAGIC IS THIS, CAMERA NOT FOUND.")
+	return
+end
 
 -- FinityUI Lib --
 local Finity = loadstring(game:HttpGet("http://finity.vip/scripts/finity_lib.lua"))()
@@ -205,8 +213,8 @@ local noclipped = s2:Cheat("Checkbox", "No-Clip", function(state)
     end)
 end)
 
--- Item Esp Button
-local itemesp = s2:Cheat("Checkbox", "Item ESP", function(state)
+-- Item Name Esp Button
+local itemesp = s2:Cheat("Checkbox", "Item Name ESP", function(state)
     local function isnil(thing)
         return (thing == nil)
     end
@@ -251,7 +259,7 @@ local itemesp = s2:Cheat("Checkbox", "Item ESP", function(state)
         wait(.2)
     end
     ItemEsp = state
-    while ItemEsp and wait(.5) do
+    while ItemEsp and wait(.1) do
         if ItemEsp then
             hellno()
         else
@@ -265,7 +273,50 @@ local itemesp = s2:Cheat("Checkbox", "Item ESP", function(state)
             end
         end
     end
- end)
+end)
+
+-- Item Line Esp --
+local itemlesp = s2:Cheat("Checkbox", "Item Line Esp", function(state)
+    local function isnil(thing)
+        return (thing == nil)
+    end
+    local function LoadLine()
+        for i,v in pairs(workspace.Items:GetChildren()) do
+            if v:IsA("Tool") and v:FindFirstChild("Handle") then
+                if not isnil(v.Handle) and not v.Handle:FindFirstChild("LineEsp") then
+                    pcall(function()
+                        local at0 = Instance.new("Attachment")
+                        at0.Parent = LocalP.Character.HumanoidRootPart
+                        local at1 = Instance.new("Attachment")
+                        at1.Parent = v.Handle
+                        local beam0 = Instance.new("Beam")
+                        beam0.Name = "LineEsp"
+                        beam0.Attachment0 = at0
+                        beam0.Attachment1 = at1
+                        beam0.Color = ColorSequence.new(Color3.new(1,0,0),Color3.new(1,0,0))
+                        beam0.Parent = v.Handle
+                    end)
+                end
+            end
+        end
+        wait(.2)
+    end
+    LineEsp = state
+    while LineEsp and wait(.1) do
+        if LineEsp then
+            LoadLine()
+        else
+            for _,tool in pairs(workspace.Items:GetChildren()) do
+                if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+                    if tool.Handle:FindFirstChild("LineEsp") then
+                        local lineEsp = tool.Handle:FindFirstChild("LineEsp")
+                        lineEsp:Destroy()
+                    end
+                end
+            end
+        end
+    end
+end)
 
  --[[ Soon during this night my brain lagging ;p
  -- ESP Arrow Checkbox --
