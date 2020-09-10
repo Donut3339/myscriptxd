@@ -52,11 +52,8 @@ WatchTp = false
 TPCertainItems = false
 ItemEsp = false
 LineEsp = false
-ArrowF = false
-RokaF = false
-KujoCapF = false
-MoneyF = false
 NoClip = false
+diofuck = false
 
 -- Local Variable --
 local Players = game:service'Players'
@@ -167,19 +164,51 @@ end, {text = "Teleport"})
 
 -- Teleport All Item Checkbox --
 local tpallitems = s1:Cheat("Checkbox", "Tp All Items", function(state)
-   local Char = LocalP.Character
-   TpAllItem = state
-   while TpAllItem do
-       for i,v in pairs(workspace.Items:GetChildren()) do
-           if v:IsA("Tool") and v:FindFirstChild("Handle") then
-               local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-               local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-               Tween:Play()
-               Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
-           end
-       end
-       wait()
-   end
+    local Char = LocalP.Character
+    TpAllItem = state
+    while TpAllItem and wait() do
+        for i,v in pairs(workspace.Items:GetChildren()) do
+            if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Parent then
+                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                Tween:Play()
+                Tween.Completed:Wait()
+            end
+        end
+        wait()
+    end
+end)
+
+-- DIO TP --
+local tpdio = s1:Cheat("Checkbox", "Auto Kill DIO/Zombie", function(state)
+    diofuck = state
+    while diofuck do
+        for i,v in pairs(workspace:GetChildren()) do
+            if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Name == "DIO [BOSS]" or string.find(v.Name, "zombie") then
+                if diofuck then
+                    repeat
+                        pcall(function()
+                            LocalP.Character.Humanoid:ChangeState(11)
+                            LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 0, 7)
+                        end)
+                        wait()
+                        pcall(function()
+                            remotes = {}
+                            for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+                                if v:IsA("RemoteEvent") then
+                                    table.insert(remotes, v.Name)
+                                end
+                            end
+
+                            local eventName = remotes[1]
+                            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
+                        end)
+                    until v.Humanoid.Health <= 0 or not v.Parent or not diofuck
+                end
+            end
+        end
+        wait()
+    end
 end)
 
 -- Collect Money Checkbox --
@@ -318,28 +347,6 @@ local itemlesp = s2:Cheat("Checkbox", "Item Line Esp", function(state)
     end
 end)
 
- --[[ Soon during this night my brain lagging ;p
- -- ESP Arrow Checkbox --
-local arrowesp = s2:Cheat("Checkbox", "ESP Arrow", function(state)
-    ArrowF = state
-end)
-
- -- ESP Rokakaka Checkbox --
-local rokaesp = s2:Cheat("Checkbox", "ESP Rokakaka", function(state)
-    RokaF = state
-end)
-
-  -- ESP Kujo Cap Checkbox --
-local kujocapesp = s2:Cheat("Checkbox", "ESP Kujo Jotaro Cap", function(state)
-    KujoCapF = state
- end)
-
-   -- ESP Money Checkbox --
-local monetesp = s2:Cheat("Checkbox", "ESP Money", function(state)
-    MoneyF = state
-end)
-]]--
-
 -- Destroy Gui Button
 local disabled = s2:Cheat("Button", "Destroy Gui", function()
    if game:service'CoreGui':FindFirstChild("FinityUI") then game:service'CoreGui':FindFirstChild("FinityUI"):Destroy() end
@@ -384,13 +391,35 @@ end)
 
 -- Anti TS Checkbox --
 local antits = s3:Cheat("Checkbox", "Anti-TS", function(state)
-   AntiTS = state
-   while AntiTS and wait() do
-       if game:service'Lighting':FindFirstChild("TSing").Changed then
-           game:service'Lighting':FindFirstChild("TSing").Value = false
-       end
-   end
+    AntiTS = state
+    while AntiTS and wait() do
+        if game:service'Lighting'.ChildAdded then
+            if game:service'Lighting'.TS.Changed then
+                game:service'Lighting'.TS.Value = false
+            end
+            if game:service'Lighting':FindFirstChild("sakts") then
+                game:service'Lighting':FindFirstChild("sakts").Value = false
+            end
+        end
+    end
 end)
+
+-- Kill All button --
+local killall = s3:Cheat("Button", "Kill all", function()
+    remotes = {}
+    for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+        if v:IsA("RemoteEvent") then
+            table.insert(remotes, v.Name)
+        end
+    end
+
+    for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+            local eventName = remotes[1]
+            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
+        end
+    end
+end, {text = "Kill All"})
 
 --[[
     Category 2 / Items Sector
