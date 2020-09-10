@@ -189,7 +189,7 @@ local tpdio = s1:Cheat("Checkbox", "Auto Kill DIO/Zombie", function(state)
                     repeat
                         pcall(function()
                             LocalP.Character.Humanoid:ChangeState(11)
-                            LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 0, 7)
+                            LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                         end)
                         wait()
                         pcall(function()
