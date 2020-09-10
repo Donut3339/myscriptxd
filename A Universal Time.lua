@@ -622,7 +622,7 @@ local asellarrow = s2:Cheat("Checkbox", "Auto-Sell Arrow", function(state)
     SellGodGifts = state
     while SellGodGifts and wait(.1) do
         if LocalP:FindFirstChild("Backpack").ChildAdded and LocalP.Backpack:FindFirstChild("Holy Diary") then
-            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Gift From The Gods")
+            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Holy Diary")
         end
     end
  end)
