@@ -527,31 +527,19 @@ local kaura = s4:Cheat("Checkbox", "Kill Aura", function(state)
     killAura = state
     while killAura and wait(.1) do
         remotes = {}
-        for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-            if v:IsA("RemoteEvent") then
-                table.insert(remotes, v.Name)
+        for i3,v3 in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+            if v3:IsA("RemoteEvent") then
+                table.insert(remotes, v3.Name)
             end
         end
 
         for i,v in pairs(game.Players:GetChildren()) do
-            if v.Name ~= LocalP.Name then
-                local Char = v.Character
-                if LocalP:DistanceFromCharacter(Char.HumanoidRootPart.Position) < 70 then
-                    local eventName = remotes[1]
-                    game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
-                end
+            if v.Name ~= LocalP.Name and LocalP:DistanceFromCharacter(v.Character.HumanoidRootPart.Position) < 70 then
+                local eventName = remotes[1]
+                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
             end
         end
         wait()
-        for i,v in pairs(workspace.Enemies:GetChildren()) do
-            if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
-                local root = v.HumanoidRootPart
-                if LocalP:DistanceFromCharacter(root.Position) < 70 then
-                    local eventName = remotes[1]
-                    game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
-                end
-            end
-        end
     end
 end)
 
