@@ -291,7 +291,7 @@ local itemesp = s2:Cheat("Checkbox", "Item Name ESP", function(state)
         return (thing == nil)
     end
     local function hellno()
-        for i,v in pairs(workspace:GetDescendants()) do
+        for i,v in pairs(workspace.Items:GetChildren()) do
             if v:IsA("Tool") and v:FindFirstChild("Handle") then
                 if not isnil(v.Handle) and not v.Handle:FindFirstChild("NameEsp") then
                     pcall(function()
@@ -335,7 +335,7 @@ local itemesp = s2:Cheat("Checkbox", "Item Name ESP", function(state)
         if ItemEsp then
             hellno()
         else
-            for _,tool in pairs(workspace:GetDescendants()) do
+            for _,tool in pairs(workspace.Items:GetChildren()) do
                 if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
                     if tool.Handle:FindFirstChild("NameEsp") then
                         local nameEsp = tool.Handle:FindFirstChild("NameEsp")
@@ -353,7 +353,7 @@ local itemlesp = s2:Cheat("Checkbox", "Item Line Esp", function(state)
         return (thing == nil)
     end
     local function LoadLine()
-        for i,v in pairs(workspace:GetDescendants()) do
+        for i,v in pairs(workspace.Items:GetChildren()) do
             if v:IsA("Tool") and v:FindFirstChild("Handle") then
                 if not isnil(v.Handle) and not v.Handle:FindFirstChild("LineEsp") then
                     pcall(function()
@@ -378,7 +378,7 @@ local itemlesp = s2:Cheat("Checkbox", "Item Line Esp", function(state)
         if LineEsp then
             LoadLine()
         else
-            for _,tool in pairs(workspace:GetDescendants()) do
+            for _,tool in pairs(workspace.Items:GetChildren()) do
                 if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
                     if tool.Handle:FindFirstChild("LineEsp") then
                         local lineEsp = tool.Handle:FindFirstChild("LineEsp")
