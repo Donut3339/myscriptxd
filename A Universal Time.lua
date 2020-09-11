@@ -31,6 +31,12 @@ for _,gay in pairs(workspace:GetDescendants()) do
    end
 end
 
+-- Remove some shit thanks to Spire#1519 and SamYs94#9312 --
+if workspace["RANDOM STUFF"].gem:FindFirstChildOfClass("Tool") then
+    local tool = workspace["RANDOM STUFF"].gem:FindFirstChildOfClass("Tool")
+    tool:Destroy()
+end
+
 -- Global Variable --
 TpAllItem = false
 AntiTS = false
