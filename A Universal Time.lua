@@ -202,7 +202,7 @@ local akillzombie = s1:Cheat("Checkbox", "Auto Kill Zombie", function(state)
                             LocalP.Character.Humanoid:ChangeState(11)
                             LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                         end)
-                        wait(.1)
+                        wait(.6)
                         pcall(function()
                             remotes = {}
                             for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
@@ -558,15 +558,14 @@ end)
 -- Auto heal (crazy diamond) Checkbox --
 local aheal = s4:Cheat("Checkbox", "Auto Heal", function(state)
     autoHeal = state
-    while autoHeal and wait(.7) do
-        remotes = {}
-        for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-            if v:IsA("RemoteEvent") then
-                table.insert(remotes, v.Name)
-            end
-        end
-
+    while autoHeal and wait(.3) do
         if LocalP.Character.Humanoid.Health < LocalP.Character.Humanoid.MaxHealth then
+            remotes = {}
+            for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+                if v:IsA("RemoteEvent") then
+                    table.insert(remotes, v.Name)
+                end
+            end
             local eventName = remotes[7]
             game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(LocalP.Character.Humanoid, math.huge, "rbxassetid://137579113", 0, 0, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false)
         end
