@@ -53,7 +53,8 @@ TPCertainItems = false
 ItemEsp = false
 LineEsp = false
 NoClip = false
-diofuck = false
+zombies = false
+dios = false
 
 -- Local Variable --
 local Players = game:service'Players'
@@ -179,19 +180,19 @@ local tpallitems = s1:Cheat("Checkbox", "Tp All Items", function(state)
     end
 end)
 
--- DIO TP --
-local tpdio = s1:Cheat("Checkbox", "Auto Kill DIO/Zombie", function(state)
-    diofuck = state
-    while diofuck do
-        for i,v in pairs(workspace:GetChildren()) do
-            if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Name == "DIO [BOSS]" or string.find(v.Name, "zombie") then
-                if diofuck then
+-- Auto Kill Zombie Checkbox --
+local akillzombie = s1:Cheat("Checkbox", "Auto Kill Zombie", function(state)
+    zombies = state
+    while zombies do
+        for i,v in pairs(workspace.Enemies:GetChildren()) do
+            if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and string.find(v.Name, "zombie") then
+                if zombies then
                     repeat
                         pcall(function()
                             LocalP.Character.Humanoid:ChangeState(11)
                             LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                         end)
-                        wait()
+                        wait(.1)
                         pcall(function()
                             remotes = {}
                             for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
@@ -203,7 +204,39 @@ local tpdio = s1:Cheat("Checkbox", "Auto Kill DIO/Zombie", function(state)
                             local eventName = remotes[1]
                             game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
                         end)
-                    until v.Humanoid.Health <= 0 or not v.Parent or not diofuck
+                    until v.Humanoid.Health <= 0 or not v.Parent or not zombies
+                end
+            end
+        end
+        wait()
+    end
+end)
+
+-- Auto Kill Zombie Checkbox --
+local akilldio = s1:Cheat("Checkbox", "Auto Kill DIO", function(state)
+    dios = state
+    while dios do
+        for i,v in pairs(workspace.Enemies:GetChildren()) do
+            if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Name == "DIO [BOSS]" then
+                if dios then
+                    repeat
+                        pcall(function()
+                            LocalP.Character.Humanoid:ChangeState(11)
+                            LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                        end)
+                        wait(.1)
+                        pcall(function()
+                            remotes = {}
+                            for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+                                if v:IsA("RemoteEvent") then
+                                    table.insert(remotes, v.Name)
+                                end
+                            end
+
+                            local eventName = remotes[1]
+                            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
+                        end)
+                    until v.Humanoid.Health <= 0 or not v.Parent or not dios
                 end
             end
         end
@@ -414,12 +447,27 @@ local killall = s3:Cheat("Button", "Kill all", function()
     end
 
     for i,v in pairs(game.Players:GetChildren()) do
-        if v.Name ~= game.Players.LocalPlayer.Name then
+        if v.Name ~= LocalP.Name then
             local eventName = remotes[1]
             game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
         end
     end
 end, {text = "Kill All"})
+
+-- Heal All button --
+local killall = s3:Cheat("Button", "Heal all", function()
+    remotes = {}
+    for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+        if v:IsA("RemoteEvent") then
+            table.insert(remotes, v.Name)
+        end
+    end
+
+    for i,v in pairs(game.Players:GetChildren()) do
+        local eventName = remotes[7]
+        game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, math.huge, "rbxassetid://137579113", 0, 0, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false)
+    end
+end, {text = "Heal All"})
 
 --[[
     Category 2 / Items Sector
@@ -610,8 +658,8 @@ local asellarrow = s2:Cheat("Checkbox", "Auto-Sell Arrow", function(state)
     local Char = LocalP.Character
     SellReqArrow = state
     while SellReqArrow and wait(.1) do
-        if LocalP:FindFirstChild("Backpack").ChildAdded and LocalP.Backpack:FindFirstChild(string.find(LocalP.Backpack:FindFirstChildOfClass("Tool").Name, "Dio")) then
-            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("Requiem Arrow")
+        if LocalP:FindFirstChild("Backpack").ChildAdded and LocalP.Backpack:FindFirstChild("DIO's Diary") then
+            game:GetService("ReplicatedStorage").newremotes.SellItem:FireServer("DIO's Diary")
         end
     end
  end)
