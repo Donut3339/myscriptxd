@@ -548,7 +548,7 @@ local kaura = s4:Cheat("Checkbox", "Kill Aura", function(state)
                 local root = v.HumanoidRootPart
                 if LocalP:DistanceFromCharacter(root.Position) < 70 then
                     local eventName = remotes[1]
-                    game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
+                    game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
                 end
             end
         end
