@@ -184,7 +184,7 @@ end)
 local akillzombie = s1:Cheat("Checkbox", "Auto Kill Zombie", function(state)
     zombies = state
     while zombies do
-        for i,v in pairs(workspace:GetChildren()) do
+        for i,v in pairs(workspace.Enemies:GetChildren()) do
             if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and string.find(v.Name, "zombie") then
                 if zombies then
                     repeat
