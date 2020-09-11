@@ -192,7 +192,7 @@ local akillzombie = s1:Cheat("Checkbox", "Auto Kill Zombie", function(state)
                             LocalP.Character.Humanoid:ChangeState(11)
                             LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                         end)
-                        wait(.8)
+                        wait(.1)
                         pcall(function()
                             remotes = {}
                             for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
