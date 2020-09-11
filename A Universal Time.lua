@@ -684,7 +684,7 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
    vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
    print'[Anti-Afk] OwO you idled a second ago.'
 end)
-warn(.2)
+wait(.2)
 warn'Anti-AFK is running!'
 while true and wait() do
    if not game:service'CoreGui':FindFirstChild("FinityUI") then
