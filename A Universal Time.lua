@@ -184,7 +184,7 @@ end)
 local akillzombie = s1:Cheat("Checkbox", "Auto Kill Zombie", function(state)
     zombies = state
     while zombies do
-        for i,v in pairs(workspace:()) do
+        for i,v in pairs(workspace:GetChildren()) do
             if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and string.find(v.Name, "zombie") then
                 if zombies then
                     repeat
@@ -676,6 +676,16 @@ local asellarrow = s2:Cheat("Checkbox", "Auto-Sell Arrow", function(state)
  end)
 
 -- yeet
+wait(.3)
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   print'[Anti-Afk] OwO you idled a second ago.'
+end)
+warn(.2)
+warn'Anti-AFK is running!'
 while true and wait() do
    if not game:service'CoreGui':FindFirstChild("FinityUI") then
        return
