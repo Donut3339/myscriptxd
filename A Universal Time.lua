@@ -421,7 +421,7 @@ local iawaken = s2:Cheat("Button", "Instant Awaken (Gaster)", function()
             awakenRemote:FireServer(LocalP.Character.Humanoid)
         end
         repeat
-            game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -math.huge)
+            game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -1)
             wait(.6)
         until LocalP.Character.Humanoid.Health <= 0
     end
