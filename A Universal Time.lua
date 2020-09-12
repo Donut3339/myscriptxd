@@ -80,7 +80,7 @@ end
 -- FinityUI Lib --
 local Finity = loadstring(game:HttpGet("http://finity.vip/scripts/finity_lib.lua"))()
 local FinityWindow = Finity.new(true) -- 'true' dark 'false' white
-FinityWindow.ChangeToggleKey(Enum.KeyCode[_G.Key])
+FinityWindow.ChangeToggleKey(Enum.KeyCode.Insert)
 
 -- Categories --
 local c1 = FinityWindow:Category("Main")
