@@ -175,18 +175,33 @@ end, {text = "Teleport"})
 
 -- Teleport All Item Checkbox --
 local tpallitems = s1:Cheat("Checkbox", "Tp All Items", function(state)
-    local Char = LocalP.Character
     TpAllItem = state
     while TpAllItem and wait() do
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Parent then
-                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-                Tween:Play()
-                Tween.Completed:Wait()
+        repeat
+            for i,v in pairs(workspace.Items:GetChildren()) do
+                if LocalP.Character and TpAllItem == true then
+                    if v:IsA("Tool") and v:FindFirstChild("Handle") then
+                        local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                        local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                        Tween:Play()
+                        Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                    end
+                end
             end
-        end
-        wait()
+            wait()
+            if workspace:FindFirstChildOfClass("Tool") then
+                for i,v in pairs(workspace:GetChildren()) do
+                    if LocalP.Character and TpAllItem == true then
+                        if v:IsA("Tool") and v:FindFirstChild("Handle") then
+                            local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                            local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                            Tween:Play()
+                            Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                        end
+                    end
+                end
+            end
+        until TpAllItem == false
     end
 end)
 
@@ -267,7 +282,6 @@ local collectmoney = s1:Cheat("Checkbox", "Collect Money", function(state)
        elseif LocalP:FindFirstChild("Backpack"):FindFirstChild("Money") then
            local tool = LocalP:WaitForChild("Backpack"):FindFirstChild("Money")
            LocalP.Character.Humanoid:EquipTool(tool)
-           tool:Activate()
        end
    end
 end)
@@ -580,35 +594,53 @@ local tpspeed2 = s1:Cheat("Textbox", "Speed TP", function(value)
 
   -- Teleport Arrow Checkbox --
 local tpcertainitems = s1:Cheat("Checkbox", "Teleport", function(state)
-    local Char = LocalP.Character
     TPCertainItems = state
     while TPCertainItems do
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and string.find(v.Name, NameItems) and not NameItems == "" then
-                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-                Tween:Play()
-                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+        repeat
+            for i,v in pairs(workspace.Items:GetChildren()) do
+                if LocalP.Character and TPCertainItems == true then
+                    if v:IsA("Tool") and v:FindFirstChild("Handle") and string.find(v.Name, NameItems) and not NameItems == "" then
+                        local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                        local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                        Tween:Play()
+                        Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                    end
+                end
             end
-        end
-        wait()
+            wait()
+            if workspace:FindFirstChildOfClass("Tool") then
+                for i,v in pairs(workspace:GetChildren()) do
+                    if LocalP.Character and TPCertainItems == true then
+                        if v:IsA("Tool") and v:FindFirstChild("Handle") and string.find(v.Name, NameItems) and not NameItems == "" then
+                            local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                            local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                            Tween:Play()
+                            Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                        end
+                    end
+                end
+            end
+        until TPCertainItems == false
     end
  end)
 
  -- Teleport Arrow Checkbox --
 local tparrow = s1:Cheat("Checkbox", "Tp Arrow", function(state)
-    local Char = LocalP.Character
     ArrowTp = state
     while ArrowTp do
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Arrow" then
-                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-                Tween:Play()
-                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+        repeat
+            for i,v in pairs(workspace.Items:GetChildren()) do
+                if LocalP.Character and ArrowTp == true then
+                    if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Arrow" then
+                        local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                        local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                        Tween:Play()
+                        Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                    end
+                end
             end
-        end
-        wait()
+            wait()
+        until ArrowTp == false
     end
  end)
 
@@ -617,15 +649,19 @@ local rokatp = s1:Cheat("Checkbox", "Tp Rokakaka Fruit", function(state)
     local Char = LocalP.Character
     RokaTp = state
     while RokaTp do
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Rokakaka Fruit" then
-                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-                Tween:Play()
-                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+        repeat
+            for i,v in pairs(workspace.Items:GetChildren()) do
+                if LocalP.Character and RokaTp == true then
+                    if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Rokakaka Fruit" then
+                        local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                        local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                        Tween:Play()
+                        Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                    end
+                end
             end
-        end
-        wait()
+            wait()
+        until RokaTp == false
     end
  end)
 
@@ -634,15 +670,19 @@ local moneytp = s1:Cheat("Checkbox", "Tp Money", function(state)
     local Char = LocalP.Character
     MoneyTp = state
     while MoneyTp do
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Money" then
-                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-                Tween:Play()
-                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+        repeat
+            for i,v in pairs(workspace.Items:GetChildren()) do
+                if LocalP.Character and MoneyTp == true then
+                    if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Money" then
+                        local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                        local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                        Tween:Play()
+                        Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                    end
+                end
             end
-        end
-        wait()
+            wait()
+        until MoneyTp == false
     end
  end)
 
@@ -651,15 +691,19 @@ local diodiarytp = s1:Cheat("Checkbox", "Tp Dio's Diary", function(state)
     local Char = LocalP.Character
     DioDiaryTp = state
     while DioDiaryTp do
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and string.find(v.Name, "DIO") then
-                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-                Tween:Play()
-                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+        repeat
+            for i,v in pairs(workspace.Items:GetChildren()) do
+                if LocalP.Character and DioDiaryTp == true then
+                    if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "DIO's Diary" then
+                        local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                        local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                        Tween:Play()
+                        Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                    end
+                end
             end
-        end
-        wait()
+            wait()
+        until DioDiaryTp == false
     end
  end)
 
@@ -668,12 +712,14 @@ local holydiarytp = s1:Cheat("Checkbox", "Tp Holy Diary", function(state)
     local Char = LocalP.Character
     HolyDiaryTp = state
     while HolyDiaryTp do
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and string.find(v.Name, "Holy Diary") then
-                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-                Tween:Play()
-                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+        for i,v in pairs(workspace.Items:GetChildren()) do
+            if LocalP.Character and HolyDiaryTp == true then
+                if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Holy Diary" then
+                    local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                    local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                    Tween:Play()
+                    Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                end
             end
         end
         wait()
@@ -685,15 +731,19 @@ local watchtp = s1:Cheat("Checkbox", "Tp Watch", function(state)
     local Char = LocalP.Character
     WatchTp = state
     while WatchTp do
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Watch" then
-                local tInfo = TweenInfo.new((Char.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                local Tween = game:service'TweenService':Create(Char.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
-                Tween:Play()
-                Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+        repeat
+            for i,v in pairs(workspace.Items:GetChildren()) do
+                if LocalP.Character and WatchTp == true then
+                    if v:IsA("Tool") and v:FindFirstChild("Handle") and v.Name == "Watch" then
+                        local tInfo = TweenInfo.new((LocalP.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude / tweenSpeed2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 1)
+                        local Tween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, tInfo, {CFrame = v.Handle.CFrame})
+                        Tween:Play()
+                        Tween.Completed:Wait(LocalP:DistanceFromCharacter(v.Handle.Position))
+                    end
+                end
             end
-        end
-        wait()
+            wait()
+        until WatchTp == false
     end
  end)
 
