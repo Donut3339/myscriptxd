@@ -414,12 +414,16 @@ end)
 
 -- Instant Awaken (gaster) Button --
 local iawaken = s2:Cheat("Button", "Instant Awaken (Gaster)", function()
-    if LocalP.Character and LocalP.Character:FindFirstChild("Stand") then
+    if LocalP.Character and LocalP.Character.Stand:FindFirstChild("Serv") then
         local stand = LocalP.Character:FindFirstChild("Stand")
         if stand:IsA("Model") and stand:FindFirstChild("Serv") then
             local awakenRemote = stand.Serv.awaken
             awakenRemote:FireServer(LocalP.Character.Humanoid)
         end
+        repeat
+            game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -math.huge)
+            wait(.6)
+        until LocalP.Character.Humanoid.Health <= 0
     end
 end, {text = "Awaken"})
 
@@ -887,7 +891,7 @@ end)
 -- Auto heal Checkbox --
 local aheal = s3:Cheat("Checkbox", "Auto Heal", function(state)
     autoHeal = state
-    while autoHeal and wait(.5) do
+    while autoHeal and wait(.3) do
         remotes = {}
         for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
             if remote:IsA("RemoteEvent") then
@@ -901,7 +905,7 @@ local aheal = s3:Cheat("Checkbox", "Auto Heal", function(state)
                 if LocalP.Character and LocalP.Character.Stand:FindFirstChild("Serv") then
                     local stand = LocalP.Character:FindFirstChild("Stand")
                     if stand:IsA("Model") and stand:FindFirstChild("Serv") then
-                        game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -1)
+                        game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -math.huge)
                     end
                 else
                     game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(LocalP.Character.Humanoid, stuffValue, "rbxassetid://137579113", 10, 10, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false) 
