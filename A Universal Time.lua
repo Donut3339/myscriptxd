@@ -62,6 +62,7 @@ NoClip = false
 zombies = false
 dios = false
 playerName = ""
+stuffValue = 6666
 killAura = false
 autoHeal = false
 
@@ -84,6 +85,7 @@ FinityWindow.ChangeToggleKey(Enum.KeyCode.Insert)
 -- Categories --
 local c1 = FinityWindow:Category("Main")
 local c2 = FinityWindow:Category("Items")
+local c3 = FinityWindow:Category("Troll")
 local c999 = FinityWindow:Category("Credits")
 
 -- Credits Sector --
@@ -101,7 +103,6 @@ s2:Cheat("Label", "Discord Server (https://discord.gg/K4waTHQ)")
 local s1 = c1:Sector("AutoFarm")
 local s2 = c1:Sector("Misc")
 local s3 = c1:Sector("Local")
-local s4 = c1:Sector("Other")
 
 -- Items Dropdown --
 local items = s1:Cheat("Dropdown", "Item", function(currentOption)
@@ -217,17 +218,19 @@ local akillzombie = s1:Cheat("Checkbox", "Auto Kill Zombie", function(state)
                             LocalP.Character.Humanoid:ChangeState(11)
                             LocalP.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
                         end)
-                        wait(.6)
+                        wait(.1)
                         pcall(function()
                             remotes = {}
-                            for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-                                if v:IsA("RemoteEvent") then
-                                    table.insert(remotes, v.Name)
+                            for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+                                if remote:IsA("RemoteEvent") then
+                                    table.insert(remotes, remote.Name)
                                 end
                             end
 
-                            local eventName = remotes[1]
-                            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
+                            for index = 1, #remotes do
+                                local remoteName = remotes[index]
+                                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(v.Humanoid, 9999, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 0, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
+                            end
                         end)
                     until v.Humanoid.Health <= 0 or not v.Parent or not zombies
                 end
@@ -252,14 +255,16 @@ local akilldio = s1:Cheat("Checkbox", "Auto Kill DIO", function(state)
                         wait(.8)
                         pcall(function()
                             remotes = {}
-                            for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-                                if v:IsA("RemoteEvent") then
-                                    table.insert(remotes, v.Name)
+                            for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+                                if remote:IsA("RemoteEvent") then
+                                    table.insert(remotes, remote.Name)
                                 end
                             end
 
-                            local eventName = remotes[1]
-                            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
+                            for index = 1, #remotes do
+                                local remoteName = remotes[index]
+                                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(v.Humanoid, 9999, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 0, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
+                            end
                         end)
                     until v.Humanoid.Health <= 0 or not v.Parent or not dios
                 end
@@ -271,11 +276,10 @@ end)
 
 -- Collect Money Checkbox --
 local collectmoney = s1:Cheat("Checkbox", "Collect Money", function(state)
-   local Char = LocalP.Character
    CollectMoney = state
    while CollectMoney and wait() do
-       if Char and Char:FindFirstChildOfClass("Tool") then
-           local tool = Char:FindFirstChildOfClass("Tool")
+       if LocalP.Character and LocalP.Character:FindFirstChildOfClass("Tool") then
+           local tool = LocalP.Character:FindFirstChildOfClass("Tool")
            if tool.Name == "Money" and tool.Equipped then
                tool:Activate()
            end
@@ -444,135 +448,6 @@ local ws = s3:Cheat("Checkbox", "JumpPower", function(state)
    else
        LocalP.Character.Humanoid.JumpPower = 50
    end
-end)
-
---[[
-    Sector 4 / stuff
-]]
-
--- Player name textbox --
-local nubname = s4:Cheat("Textbox", "Player Name", function(value)
-    playerName = value
-end, {placeholder = "Name"})
-
--- Kill button --
-local killplr = s4:Cheat("Button", "Kill", function()
-    remotes = {}
-    for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-        if v:IsA("RemoteEvent") then
-            table.insert(remotes, v.Name)
-        end
-    end
-
-    for i,v in pairs(game.Players:GetChildren()) do
-        if string.find(v.Name, playerName) then
-            local eventName = remotes[1]
-            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
-        end
-    end
-end, {text = "Kill"})
-
--- Heal button --
-local healplr = s4:Cheat("Button", "Heal", function()
-    remotes = {}
-    for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-        if v:IsA("RemoteEvent") then
-            table.insert(remotes, v.Name)
-        end
-    end
-
-    for i,v in pairs(game.Players:GetChildren()) do
-        if string.find(v.Name, playerName) then
-            local eventName = remotes[7]
-            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, math.huge, "rbxassetid://137579113", 0, 0, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false)
-        end
-    end
-end, {text = "Heal"})
-
--- Kill All button --
-local killall = s4:Cheat("Button", "Kill all", function()
-    remotes = {}
-    for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-        if v:IsA("RemoteEvent") then
-            table.insert(remotes, v.Name)
-        end
-    end
-
-    for i,v in pairs(game.Players:GetChildren()) do
-        if v.Name ~= LocalP.Name then
-            local eventName = remotes[1]
-            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
-        end
-    end
-end, {text = "Kill All"})
-
--- Heal All button --
-local healall = s4:Cheat("Button", "Heal all", function()
-    remotes = {}
-    for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-        if v:IsA("RemoteEvent") then
-            table.insert(remotes, v.Name)
-        end
-    end
-
-    for i,v in pairs(game.Players:GetChildren()) do
-        local eventName = remotes[7]
-        game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, math.huge, "rbxassetid://137579113", 0, 0, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false)
-    end
-end, {text = "Heal All"})
-
--- Anti TS Checkbox --
-local antits = s4:Cheat("Checkbox", "Anti-TS", function(state)
-    AntiTS = state
-    while AntiTS and wait() do
-        if game:service'Lighting'.ChildAdded then
-            if game:service'Lighting'.TS.Changed then
-                game:service'Lighting'.TS.Value = false
-            end
-            if game:service'Lighting':FindFirstChild("sakts") then
-                game:service'Lighting':FindFirstChild("sakts").Value = false
-            end
-        end
-    end
-end)
-
--- Kill Aura Checkbox --
-local kaura = s4:Cheat("Checkbox", "Kill Aura", function(state)
-    killAura = state
-    while killAura and wait(.1) do
-        remotes = {}
-        for i3,v3 in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-            if v3:IsA("RemoteEvent") then
-                table.insert(remotes, v3.Name)
-            end
-        end
-
-        for i,v in pairs(game.Players:GetChildren()) do
-            if v.Name ~= LocalP.Name and LocalP:DistanceFromCharacter(v.Character.HumanoidRootPart.Position) < 70 then
-                local eventName = remotes[1]
-                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(v.Character.Humanoid, 9999, Vector3.new(0,0,0), "rbxassetid://260430079", 0, "rbxassetid://241837157", 1, 0.1, false, false, false, {false, 0, 0}, 30)
-            end
-        end
-        wait()
-    end
-end)
-
--- Auto heal (crazy diamond) Checkbox --
-local aheal = s4:Cheat("Checkbox", "Auto Heal", function(state)
-    autoHeal = state
-    while autoHeal and wait(.3) do
-        if LocalP.Character.Humanoid.Health < LocalP.Character.Humanoid.MaxHealth then
-            remotes = {}
-            for i,v in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
-                if v:IsA("RemoteEvent") then
-                    table.insert(remotes, v.Name)
-                end
-            end
-            local eventName = remotes[7]
-            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(eventName)]:FireServer(LocalP.Character.Humanoid, math.huge, "rbxassetid://137579113", 0, 0, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false)
-        end
-        wait()
-    end
 end)
 
 --[[
@@ -816,6 +691,169 @@ local asellarrow = s2:Cheat("Checkbox", "Auto-Sell Arrow", function(state)
         end
     end
  end)
+
+--[[
+    Category 3 / Troll
+]]
+
+-- Troll Sector --
+local s1 = c3:Sector("Stuff 1")
+local s2 = c3:Sector("Stuff 2")
+local s3 = c3:Sector("Stuff 3")
+
+-- Player name textbox --
+local nubname = s1:Cheat("Textbox", "Player Name", function(value)
+    playerName = value
+end, {placeholder = "Name"})
+
+-- Value textbox --
+local nubvalue = s1:Cheat("Textbox", "Value", function(value)
+    stuffValue = tonumber(value)
+end, {placeholder = "Value"})
+
+-- Kill button --
+local killplr = s1:Cheat("Button", "Kill Player", function()
+    remotes = {}
+    for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+        if remote:IsA("RemoteEvent") then
+            table.insert(remotes, remote.Name)
+        end
+    end
+
+    for _,plr in pairs(Players:GetChildren()) do
+        if string.find(plr.Name, tostring(playerName)) then
+            for index = 1, #remotes do
+                local remoteName = remotes[index]
+                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, stuffValue, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 0, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
+            end
+        end
+    end
+end, {text = "Kill"})
+
+-- Heal button --
+local healplr = s1:Cheat("Button", "Heal Player", function()
+    remotes = {}
+    for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+        if remote:IsA("RemoteEvent") then
+            table.insert(remotes, remote.Name)
+        end
+    end
+
+    for _,plr in pairs(Players:GetChildren()) do
+        if string.find(plr.Name, tostring(playerName)) then
+            for index = 1, #remotes do
+                local remoteName = remotes[index]
+                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, stuffValue, "rbxassetid://137579113", 10, 0, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false) 
+            end
+        end
+    end
+end, {text = "Heal"})
+
+-- Kill All button --
+local killall = s2:Cheat("Button", "Kill all", function()
+    remotes = {}
+    for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+        if remote:IsA("RemoteEvent") then
+            table.insert(remotes, remote.Name)
+        end
+    end
+
+    for _,plr in pairs(Players:GetChildren()) do
+        if plr.Name ~= LocalP.Name then
+            for index = 1, #remotes do
+                local remoteName = remotes[index]
+                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, 9999, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 0, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
+            end
+        end
+    end
+end, {text = "Kill All"})
+
+-- Heal All button --
+local healall = s2:Cheat("Button", "Heal all", function()
+    remotes = {}
+    for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+        if remote:IsA("RemoteEvent") then
+            table.insert(remotes, remote.Name)
+        end
+    end
+
+    for _,plr in pairs(Players:GetChildren()) do
+        for index = 1, #remotes do
+            local remoteName = remotes[index]
+            game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, 1, "rbxassetid://137579113", 10, 0, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false) 
+        end
+    end
+end, {text = "Heal All"})
+
+-- Lag all button --
+local lagall = s2:Cheat("Button", "Lag all", function()
+    for i = 1, 1000 do
+        for i,v in pairs(Players:GetChildren()) do
+            if v.Name ~= LocalP.Name then
+                game:service'ReplicatedStorage'.KnockAdvanced:FireServer(v.Character.Humanoid)
+            end
+        end
+    end
+end, {text = "Lag All"})
+
+-- Anti TS Checkbox --
+local antits = s3:Cheat("Checkbox", "Anti-TS", function(state)
+    AntiTS = state
+    while AntiTS and wait() do
+        if game:service'Lighting'.ChildAdded then
+            if game:service'Lighting'.TS.Changed then
+                game:service'Lighting'.TS.Value = false
+            end
+            if game:service'Lighting':FindFirstChild("sakts") then
+                game:service'Lighting':FindFirstChild("sakts").Value = false
+            end
+        end
+    end
+end)
+
+-- Kill Aura Checkbox --
+local kaura = s3:Cheat("Checkbox", "Kill Aura", function(state)
+    killAura = state
+    while killAura and wait(.1) do
+        remotes = {}
+        for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+            if remote:IsA("RemoteEvent") then
+                table.insert(remotes, remote.Name)
+            end
+        end
+
+        for _,plr in pairs(Players:GetChildren()) do
+            if plr.Name ~= LocalP.Name and LocalP:DistanceFromCharacter(plr.Character.HumanoidRootPart.Position) < 70 then
+                for index = 1, #remotes do
+                    local remoteName = remotes[index]
+                    game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, stuffValue, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 0, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
+                end
+            end
+        end
+        wait()
+    end
+end)
+
+-- Auto heal Checkbox --
+local aheal = s3:Cheat("Checkbox", "Auto Heal", function(state)
+    autoHeal = state
+    while autoHeal and wait(.3) do
+        remotes = {}
+        for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
+            if remote:IsA("RemoteEvent") then
+                table.insert(remotes, remote.Name)
+            end
+        end
+
+        if LocalP.Character.Humanoid.Health < LocalP.Character.Humanoid.MaxHealth then
+            for index = 1, #remotes do
+                local remoteName = remotes[index]
+                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(LocalP.Character.Humanoid, stuffValue, "rbxassetid://137579113", 10, 0, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false) 
+            end
+        end
+        wait()
+    end
+end)
 
 -- yeet
 wait(.3)
