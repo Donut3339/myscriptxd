@@ -419,11 +419,11 @@ local iawaken = s2:Cheat("Button", "Instant Awaken (Gaster)", function()
         if stand:IsA("Model") and stand:FindFirstChild("Serv") then
             local awakenRemote = stand.Serv.awaken
             awakenRemote:FireServer(LocalP.Character.Humanoid)
+            wait(.2)
+            repeat wait(.6)
+                game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -9)
+            until LocalP.Character.Humanoid.Health <= 0
         end
-        repeat
-            game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -1)
-            wait(.6)
-        until LocalP.Character.Humanoid.Health <= 0
     end
 end, {text = "Awaken"})
 
@@ -741,16 +741,9 @@ local killplr = s1:Cheat("Button", "Kill Player", function()
 
     for _,plr in pairs(Players:GetChildren()) do
         if string.find(plr.Name, tostring(playerName)) then
-            if LocalP.Character and LocalP.Character.Stand:FindFirstChild("Serv") then
-                local stand = LocalP.Character:FindFirstChild("Stand")
-                if stand:IsA("Model") and stand:FindFirstChild("Serv") then
-                    game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(plr.Character.HumanoidRootPart, math.huge)
-                end
-            else
-                for index = 1, #remotes do
-                    local remoteName = remotes[index]
-                    game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, stuffValue, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 10, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
-                end
+            for index = 1, #remotes do
+                local remoteName = remotes[index]
+                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, stuffValue, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 10, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
             end
         end
     end
@@ -793,16 +786,9 @@ local killall = s2:Cheat("Button", "Kill all", function()
 
     for _,plr in pairs(Players:GetChildren()) do
         if plr.Name ~= LocalP.Name then
-            if LocalP.Character and LocalP.Character.Stand:FindFirstChild("Serv") then
-                local stand = LocalP.Character:FindFirstChild("Stand")
-                if stand:IsA("Model") and stand:FindFirstChild("Serv") then
-                    game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(plr.Character.HumanoidRootPart, math.huge)
-                end
-            else
-                for index = 1, #remotes do
-                    local remoteName = remotes[index]
-                    game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, 9999, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 10, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
-                end
+            for index = 1, #remotes do
+                local remoteName = remotes[index]
+                game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(plr.Character.Humanoid, 9999, Vector3.new(0, 0, 0), "rbxassetid://137579113", 10, 10, Color3.new(math.random(), math.random(), math.random()), Vector3.new(0, 0, 0), 0, false, 0, false, 0, 0) 
             end
         end
     end
