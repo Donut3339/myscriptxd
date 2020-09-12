@@ -80,7 +80,7 @@ end
 -- FinityUI Lib --
 local Finity = loadstring(game:HttpGet("http://finity.vip/scripts/finity_lib.lua"))()
 local FinityWindow = Finity.new(true) -- 'true' dark 'false' white
-FinityWindow.ChangeToggleKey(Enum.KeyCode.Insert)
+FinityWindow.ChangeToggleKey(Enum.KeyCode[_G.Key])
 
 -- Categories --
 local c1 = FinityWindow:Category("Main")
@@ -821,11 +821,12 @@ end, {text = "Heal All"})
 -- Lag all button --
 local lagall = s2:Cheat("Button", "Lag all", function()
     for i = 1, 1000 do
-        for i,v in pairs(Players:GetChildren()) do
-            if v.Name ~= LocalP.Name then
-                game:service'ReplicatedStorage'.KnockAdvanced:FireServer(v.Character.Humanoid)
+        for i,v in pairs(game.Players:GetChildren()) do
+            if v.Name ~= game.Players.LocalPlayer.Name then
+                game:GetService("ReplicatedStorage").newremotes.CreateProjectile:FireServer(CFrame.new(v.Character.HumanoidRootPart.Position + Vector3.new(0, -30, 0)), 0, 0, 0, 0, game:GetService("ReplicatedStorage").gaster.Bomb, 410625063, 0, 0)
             end
         end
+        wait()
     end
 end, {text = "Lag All"})
 
