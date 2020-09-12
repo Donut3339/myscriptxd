@@ -887,7 +887,7 @@ end)
 -- Auto heal Checkbox --
 local aheal = s3:Cheat("Checkbox", "Auto Heal", function(state)
     autoHeal = state
-    while autoHeal and wait(.3) do
+    while autoHeal and wait(.4) do
         remotes = {}
         for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
             if remote:IsA("RemoteEvent") then
@@ -901,7 +901,7 @@ local aheal = s3:Cheat("Checkbox", "Auto Heal", function(state)
                 if LocalP.Character and LocalP.Character.Stand:FindFirstChild("Serv") then
                     local stand = LocalP.Character:FindFirstChild("Stand")
                     if stand:IsA("Model") and stand:FindFirstChild("Serv") then
-                        game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -math.huge)
+                        game:GetService("ReplicatedStorage").newremotes.CreateProjectile.hit:FireServer(LocalP.Character.HumanoidRootPart, -1)
                     end
                 else
                     game:service'ReplicatedStorage'.newremotes.dmgsystem[tostring(remoteName)]:FireServer(LocalP.Character.Humanoid, stuffValue, "rbxassetid://137579113", 10, 10, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0), Color3.new(math.random(), math.random(), math.random()), Color3.new(math.random(), math.random(), math.random()), false) 
