@@ -887,7 +887,7 @@ end)
 -- Auto heal Checkbox --
 local aheal = s3:Cheat("Checkbox", "Auto Heal", function(state)
     autoHeal = state
-    while autoHeal and wait(.4) do
+    while autoHeal and wait(.5) do
         remotes = {}
         for _,remote in pairs(game:service'ReplicatedStorage'.newremotes.dmgsystem:GetChildren()) do
             if remote:IsA("RemoteEvent") then
