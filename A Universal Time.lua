@@ -31,12 +31,6 @@ for _,gay in pairs(workspace:GetDescendants()) do
    end
 end
 
--- Remove some shit thanks to Spire#1519 and SamYs94#9312 --
-if workspace["RANDOM STUFF"]:FindFirstChild("gem") then
-    local gehh = workspace["RANDOM STUFF"].gem
-    gehh:Destroy()
-end
-
 -- Global Variable --
 TpAllItem = false
 AntiTS = false
