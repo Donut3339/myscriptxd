@@ -71,6 +71,7 @@ s2:Cheat("Label", "Discord Server (https://discord.gg/CAaejX3)")
 
 -- Main Sector --
 local s1 = c1:Sector("Farming")
+local s2 = c1:Sector("Misc")
 
 -- TP Speed Textbox --
 local tpSpeed = s1:Cheat("Textbox", "TP Speed", function(value)
@@ -122,6 +123,16 @@ local fMoney = s1:Cheat("CheckBox", "Money", function(state)
         wait()
     end
 end)
+
+--[[
+    Sector 2 / Misc
+]]
+
+-- Destroy Gui Button
+local disabled = s2:Cheat("Button", "Destroy Gui", function()
+    if game:service'CoreGui':FindFirstChild("FinityUI") then game:service'CoreGui':FindFirstChild("FinityUI"):Destroy() end
+    return
+ end, {text = "Destroy Gui"})
 
 -- Utilities --
 while wait() do
