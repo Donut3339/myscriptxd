@@ -1,3 +1,27 @@
+--[[
+	Self Documentation:
+	1.section:addButton: 
+	section:addButton("Name Button", function() -- Callback
+		 return print'noob' 
+	end)
+
+	2.section:addToggle:
+	section:addToggle("Name Toggle", default (true/false), function(state) -- Callback
+		print(state) 
+	end)
+
+	3.section:addTextbox:
+	section:addTextbox("Name Textbox", default (string/""), function(value)
+		print(value) -- input string, ex: "Hello World"
+	end)
+
+	4.section:addKeybind:
+	section:addKeybind("Name Keybind", default (Enum.KeyCode["Insert"]), function()
+		JEXY:Toggle()
+	end)
+]]
+
+
 -- init
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
@@ -25,6 +49,7 @@ local themes = {
 do
 	function utility:Create(instance, properties, children)
 		local object = Instance.new(instance)
+
 		
 		for i, v in pairs(properties or {}) do
 			object[i] = v

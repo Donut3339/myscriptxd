@@ -39,15 +39,21 @@ end
 
 -- Global Variable --
 FMoney = false
+FBag = false
 Speed = 50
 
 -- Local Variable --
 local Players = game:service'Players'
 local LocalP = Players.LocalPlayer
 
+local BankGui = LocalP.PlayerGui.MainGui:WaitForChild("Bank")
+local Hunger = BankGui.Parent["Hunger"]["Clipping"]
+local Ramen = game.Workspace.Items:FindFirstChild("Ramen")
+local GloveShop = game:GetService("Workspace").Items.Gloves
+
 -- FinityUI Lib --
-local Finity = loadstring(game:HttpGet("http://finity.vip/scripts/finity_lib.lua"))()
-local FinityWindow = Finity.new(true) -- 'true' dark 'false' white
+local Finity = loadstring(game:HttpGet("https://pastebin.com/raw/KFBs02vs"))()
+local FinityWindow = Finity.new(true, "Jexytd Hub") -- 'true' dark 'false' white
 FinityWindow.ChangeToggleKey(Enum.KeyCode.Insert)
 
 -- Categories --
@@ -124,6 +130,147 @@ local fMoney = s1:Cheat("CheckBox", "Money", function(state)
     end
 end)
 
+-- Punching Bags --
+function GetGlove()
+    for _,v in pairs(game.Workspace:GetChildren()) do
+        if v.Name == "RightGloves" then
+            if v:WaitForChild("WeldConstraint").Part0 == LocalP.Character:WaitForChild("Right Arm") then
+                return v
+            end
+        end
+    end
+    return false
+end
+
+local fbag = s1:Cheat("Checkbox", "Punching Bags (not done)", function(state)
+    FBag = state
+    while FBag do
+        if FBag and not FBag == false then
+            Glove = GetGlove()
+            LocalP.Character.Humanoid:UnequipTools()
+            if LocalP.Character and Glove then
+                Combat = LocalP:FindFirstChild("Backpack"):FindFirstChild("Combat")
+                BagPart = game:GetService("Workspace")["Punching Bags"]:GetChildren()[math.random(1,4)]["HumanoidRootPart"]
+                game:GetService("Workspace").Items.Gloves.ClickDetector.MaxActivationDistance = 25
+                if Hunger.AbsoluteSize.X < 200 then
+                    local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(Ramen.Position) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = Ramen.CFrame})
+                    aTween:Play()
+                    aTween.Completed:Wait(LocalP:DistanceFromCharacter(Ramen.Position))
+                    wait()
+                    if LocalP:FindFirstChild("Backpack") and not LocalP.Backpack:FindFirstChild("Ramen") then
+                        fireclickdetector(Ramen.ClickDetector)
+                    end
+                    if LocalP.Backpack:FindFirstChild("Ramen") then
+                        LocalP.Character.Humanoid:EquipTool(LocalP.Backpack:FindFirstChild("Ramen"))
+                    end
+                    wait(.1)
+                    if LocalP.Character and LocalP.Character:FindFirstChild("Ramen") then
+                        if LocalP.Character:FindFirstChild("Ramen").Equipped then
+                            LocalP.Character:FindFirstChild("Ramen"):Activate()
+                        end 
+                    end
+                elseif Hunger.AbsoluteSize.X < 25 then
+                    local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(BagPart.Position) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = BagPart.CFrame})
+                    aTween:Play()
+                    aTween.Completed:Wait(LocalP:DistanceFromCharacter(BagPart.Position))
+                end
+                if Glove.Parent then
+                    if LocalP.Character.Humanoid.Health < LocalP.Character.Humanoid.MaxHealth then
+                        local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(BagPart.Position + Vector3.new(0, -5.5, 0)) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = BagPart.CFrame + Vector3.new(0, -5.5, 0)})
+                        aTween:Play()
+                        aTween.Completed:Wait(LocalP:DistanceFromCharacter(BagPart.Position + Vector3.new(0, -5.5, 0)))
+                    end
+                end 
+            else
+                -- Buy Glove --
+                if not GetGlove() then
+                    if LocalP:FindFirstChild("Backpack") and LocalP.Backpack:FindFirstChild("Gloves") then
+                        local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(GloveShop.Position) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = GloveShop.CFrame})
+                        aTween:Play()
+                        aTween.Completed:Wait(LocalP:DistanceFromCharacter(GloveShop.Position))
+                        if aTween.Completed then
+                            fireclickdetector(GloveShop.ClickDetector)
+                        end
+                        wait()
+                    end
+                    if LocalP.Backpack:FindFirstChild("Gloves") then
+                        LocalP.Character.Humanoid:EquipTool(LocalP.Backpack:FindFirstChild("Gloves"))
+                    end
+                    wait(.1)
+                    if LocalP.Character and LocalP.Character:FindFirstChild("Gloves").Equipped then
+                        LocalP.Character:FindFirstChild("Gloves"):Activate()
+                    end
+                end
+            end
+            --[[
+            Glove = GetGlove()
+            if Glove then
+                Combat = LocalP.Backpack:FindFirstChild("Combat")
+                game:GetService("Workspace").Items.Gloves.ClickDetector.MaxActivationDistance = 25
+                -- Get Bag --
+                bag = game:GetService("Workspace")["Punching Bags"]:GetChildren()[math.random(1,4)]["HumanoidRootPart"]
+                -- if Hunger below 25 Tween to ramen --
+                if Hunger.AbsoluteSize.X < 25 then
+                    local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(bag.Position + Vector3.new(0, -3, 0)) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = bag.CFrame + Vector3.new(0, -3, 0)})
+                    aTween:Play()
+                    wait(LocalP:DistanceFromCharacter(bag.Position + Vector3.new(0, -3, 0))/SpeedV + 0)
+                    while Hunger.AbsoluteSize.X < 200 do
+                        local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(Ramen.Position + Vector3.new(0, -3, 0)) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = Ramen.CFrame + Vector3.new(0, -3, 0)})
+                        aTween:Play()
+                        wait(LocalP:DistanceFromCharacter(Ramen.Position + Vector3.new(0, -3, 0))/SpeedV + 0)
+                        while not LocalP.Backpack:FindFirstChild("Ramen") do wait()
+                            fireclickdetector(Ramen.ClickDetector)
+                        end
+                        while LocalP.Backpack:FindFirstChild("Ramen") do wait()
+                            LocalP.Character.Humanoid:EquipTool(LocalP.Backpack:FindFirstChild("Ramen"))
+                        end
+                        while LocalP.Character:FindFirstChild("Ramen") do wait()
+                            if LocalP.Character:FindFirstChild("Ramen") then 
+                                LocalP.Character:FindFirstChild("Ramen"):Activate()
+                            end
+                        end
+                    end
+                end
+                if Glove.Parent then
+                    while Glove.Parent do
+                        if (LocalP.Character.Humanoid.Health/(LocalP.Character.Humanoid.MaxHealth/100)) <= 25 then
+                            while (LocalP.Character.Humanoid.Health/(LocalP.Character.Humanoid.MaxHealth/100)) <= 25 do
+                                local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(bag.Position + Vector3.new(0, -3, 0)) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = bag.CFrame + Vector3.new(0, -3, 0)})
+                                aTween:Play()
+                                wait(LocalP:DistanceFromCharacter(bag.Position + Vector3.new(0, -3, 0))/SpeedV + 0.1)
+                            end
+                        else
+                            local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(bag.Position + Vector3.new(0, -3, 0.25)) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = bag.CFrame + Vector3.new(0, -3, 0.25)})
+                            aTween:Play()
+                            wait(LocalP:DistanceFromCharacter(bag.Position + Vector3.new(0, -3, 0.25))/SpeedV + 0.1)
+                        end
+                        if Combat.Parent ~= char then
+                            LocalP.Character.Humanoid:EquipTool(Combat)
+                        end
+                        Combat:Activate()
+                    end
+                end
+            else
+                while not GetGlove() do
+                    local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(GloveShop.Position + Vector3.new(0, -1, 0)) / SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = GloveShop.CFrame * CFrame.Angles(math.rad(90), 0, 0) + Vector3.new(0, -1, 0)})
+                    aTween:Play()
+                    wait(LocalP:DistanceFromCharacter(GloveShop.Position * CFrame.Angles(math.rad(90), 0, 0) + Vector3.new(0, -1, 0))/SpeedV + 0)
+                    while not LocalP.Backpack:FindFirstChild("Gloves") do wait()
+                        fireclickdetector(GloveShop.ClickDetector)
+                    end
+                    while LocalP.Backpack:FindFirstChild("Gloves") do wait()
+                        LocalP.Character.Humanoid:EquipTool(LocalP.Backpack:FindFirstChild("Gloves"))
+                    end
+                    while not GetGlove() do wait()
+                        LocalP.Character:FindFirstChild("Gloves"):Activate()
+                    end
+                end
+            end]]
+        end
+        wait()
+    end
+end)
+
 --[[
     Sector 2 / Misc
 ]]
@@ -136,11 +283,12 @@ local disabled = s2:Cheat("Button", "Destroy Gui", function()
 
 -- Utilities --
 while wait() do
+    --[[
     -- Remove animation from character
     if LocalP.Character.Humanoid:FindFirstChild("Animator") then
         LocalP.Character.Humanoid:WaitForChild("Animator"):remove()
         LocalP.Character:WaitForChild("Animate").Disabled = true
-    end
+    end]]
 
     -- Remove Accessory, Shirt, Pants, etc --
     if LocalP.Character:FindFirstChildOfClass("Shirt") or LocalP.Character:FindFirstChildOfClass("Pants") then
