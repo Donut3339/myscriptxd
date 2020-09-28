@@ -184,7 +184,7 @@ function Plank()
     Planked = true
 end
 
-local fbag = s1:Cheat("Checkbox", "Punching Bags (not done)", function(state)
+local fbag = s1:Cheat("Checkbox", "Auto Punching Bags", function(state)
     FBag = state
     while FBag do
         if FBag and not FBag == false then
