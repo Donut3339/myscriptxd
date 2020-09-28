@@ -59,7 +59,7 @@ end)
 FMoney = false
 FBag = false
 FRoadwork = false
-Speed = 50
+SpeedV = 50
 Bag = 1
 
 -- Local Variable --
@@ -310,6 +310,5 @@ while wait() do
         LocalP.Character:WaitForChild("Animate").Disabled = true
     end
 
-    if SpeedV == nil or SpeedV == "" then SpeedV = Speed else Speed = SpeedV end
     if not game:service'CoreGui':FindFirstChild("FinityUI") then return end
 end
