@@ -54,6 +54,7 @@ end)
 -- Global Variable --
 FMoney = false
 FBag = false
+FRoadwork = false
 Speed = 50
 Bag = 1
 
@@ -65,6 +66,7 @@ local BankGui = LocalP.PlayerGui.MainGui:WaitForChild("Bank")
 local Hunger = BankGui.Parent["Hunger"]["Clipping"]
 local Ramen = game.Workspace.Items:FindFirstChild("Ramen")
 local GloveShop = game:GetService("Workspace").Items.Gloves
+local Road = game:GetService("Workspace").Items.Roadwork
 
 -- FinityUI Lib --
 local Finity = loadstring(game:HttpGet("https://pastebin.com/raw/KFBs02vs"))()
@@ -240,6 +242,39 @@ local fbag = s1:Cheat("Checkbox", "Auto Punching Bags", function(state)
                     end
                     while not GetGlove() do wait()
                         LocalP.Character:FindFirstChild("Gloves"):Activate()
+                    end
+                end
+            end
+        end
+        wait()
+    end
+end)
+
+local froadwork = s1:Cheat("Checkbox", "Auto Roadwork", function(state)
+    FRoadwork = state
+    while FRoadwork do
+        if FRoadwork and not FRoadwork == false then
+            if LocalP:FindFirstChild("Backpack") and LocalP.Backpack:FindFirstChild("Roadwork") then
+                LocalP.Character.Humanoid:EquipTool(LocalP.Backpack:FindFirstChild("Roadwork"))
+            elseif LocalP.Character and LocalP.Character:FindFirstChild("Roadwork") then
+                LocalP.Character:FindFirstChild("Roadwork"):Activate()
+            else
+                while LocalP:DistanceFromCharacter(Road.Position) >= 4.5 do wait()
+                    local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, 1, 0))/SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = Road.Position + Vector3.new(0, 1, 0)})
+                    aTween:Play()
+                    wait(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, 1, 0))/SpeedV + .8)
+                end
+                wait(0.5)
+                while not LocalP.Backpack:FindFirstChild("Roadwork") do wait()
+                    fireclickdetector(Road.ClickDetector)
+                end
+                for _, v in pairs(game:GetService("Workspace").Roadwork:GetChildren()) do
+                    if v:FindFirstChild("BillboardGui").Enabled == true then
+                        local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, -3, 0))/SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = Road.Position + Vector3.new(0, -3, 0)})
+                        aTween:Play()
+                        wait(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, -3, 0))/SpeedV + .8)
+                        firetouchinterest(LocalP.Character.HumanoidRootPart, v, 0)
+                        firetouchinterest(LocalP.Character.HumanoidRootPart, v, 1)
                     end
                 end
             end
