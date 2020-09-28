@@ -270,7 +270,7 @@ local froadwork = s1:Cheat("Checkbox", "Auto Roadwork", function(state)
                 end
                 for _, v in pairs(game:GetService("Workspace").Roadwork:GetChildren()) do
                     if v:FindFirstChild("BillboardGui").Enabled == true then
-                        local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, -3, 0))/SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = Road.Position + Vector3.new(0, -3, 0)})
+                        local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, -3, 0))/SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = Road.CFrame + Vector3.new(0, -3, 0)})
                         aTween:Play()
                         wait(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, -3, 0))/SpeedV + .8)
                         firetouchinterest(LocalP.Character.HumanoidRootPart, v, 0)
