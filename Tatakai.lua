@@ -8,6 +8,10 @@ if game:service'CoreGui':FindFirstChild("FinityUI") then game:service'CoreGui':F
 
 -- Send a notifications if player on the game --
 if game.PlaceId == 5201039691 then
+    local RAGELOH = loadstring(game:HttpGet("https://pastebin.com/raw/Dx75GE1z"))()
+    local GUI = RAGELOH.new("")
+    GUI:toggle()
+    GUI:Notify("METH Script re-write by Jexytd", "Enjoy! full credits to Cunning & BlackHeroin")
    game:service'StarterGui':SetCore("SendNotification", {
        Title = "Discord Server";
        Text = "> https://discord.gg/CAaejX3 <";
@@ -260,7 +264,7 @@ local froadwork = s1:Cheat("Checkbox", "Auto Roadwork", function(state)
                 LocalP.Character:FindFirstChild("Roadwork"):Activate()
             else
                 while LocalP:DistanceFromCharacter(Road.Position) >= 4.5 do wait()
-                    local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, 1, 0))/SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = Road.Position + Vector3.new(0, 1, 0)})
+                    local aTween = game:service'TweenService':Create(LocalP.Character.HumanoidRootPart, TweenInfo.new(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, 1, 0))/SpeedV, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = Road.CFrame + Vector3.new(0, 1, 0)})
                     aTween:Play()
                     wait(LocalP:DistanceFromCharacter(Road.Position + Vector3.new(0, 1, 0))/SpeedV + .8)
                 end
